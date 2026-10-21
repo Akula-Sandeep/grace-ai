@@ -1,0 +1,12 @@
+-r requirements.in
+
+aiosqlite==0.22.1
+pytest==9.1.1
+pytest-asyncio==1.4.0
+pytest-cov==7.1.0
+testcontainers[postgres]==4.15.0
+black==26.5.1
+ruff==0.16.9
+mypy==2.4.0
+bandit==1.9.4
+pip-audit==2.10.1

@@ -1,0 +1,1370 @@
+/* =========================================================
+   CHAT: home (greeting + centred composer), conversation column,
+   messages, actions, composer
+   ========================================================= */
+
+.vx-app .chat-panel {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  min-height: 0;
+}
+
+.vx-app .chat-panel[hidden] {
+  display: none;
+}
+
+.vx-app .chat-shell {
+  position: relative;
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  min-height: 0;
+  height: auto;
+  background: transparent;
+}
+
+/* ---------- Conversation column ---------- */
+
+.vx-app .messages {
+  flex: 1 1 auto;
+  min-height: 0;
+  width: 100%;
+  margin: 0;
+  padding: 12px 24px 32px;
+  overflow-x: hidden;
+  overflow-y: auto;
+  background: none;
+  /* No smooth scrolling: following the stream sets scrollTop directly, and an
+     animated scroll reads as "user scrolled up" and stops following. */
+  scrollbar-width: thin;
+  scrollbar-color: var(--vx-surface-4) transparent;
+}
+
+.vx-app .message-row {
+  position: relative;
+  display: block;
+  width: 100%;
+  max-width: var(--vx-column);
+  margin: 0 auto;
+  padding: 0;
+  animation: vx-rise var(--vx-t-slow) var(--vx-ease);
+}
+
+.vx-app .message-row + .message-row {
+  margin-top: 18px;
+}
+
+.vx-app .message-row.assistant + .message-row.user {
+  margin-top: 30px;
+}
+@keyframes vx-rise {
+  from { opacity: 0; transform: translateY(6px); }
+}
+
+.vx-app .message-body {
+  display: flex;
+  gap: 14px;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  background: none;
+  border: 0;
+}
+
+.vx-app .message-content {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  min-width: 0;
+}
+
+/* User turn: a quiet bubble on the right */
+.vx-app .message-body.user {
+  justify-content: flex-end;
+}
+
+/* User actions sit beside the bubble and appear on hover, reserving no space */
+.vx-app .message-body.user .message-content {
+  flex-direction: row-reverse;
+  align-items: flex-end;
+  justify-content: flex-start;
+  gap: 4px;
+}
+
+.vx-app .message-row.user .bubble {
+  max-width: min(85%, 600px);
+  margin: 0;
+  padding: 11px 16px;
+  font-size: var(--vx-text-read);
+  line-height: 1.55;
+  color: var(--vx-text-1);
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  background: var(--vx-surface-3);
+  border: 1px solid var(--vx-border);
+  border-radius: var(--vx-r-lg) var(--vx-r-lg) 6px var(--vx-r-lg);
+  box-shadow: none;
+}
+
+.vx-app .message-row.user .bubble p {
+  margin: 0;
+}
+
+/* Assistant turn: no bubble, just well-set text */
+.vx-app .message-avatar {
+  display: inline-grid;
+  flex: 0 0 auto;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  margin-top: 1px;
+  color: var(--vx-blue);
+  background: radial-gradient(circle at 50% 35%, rgba(92, 145, 242, 0.18), rgba(92, 145, 242, 0.03) 70%);
+  border: 1px solid var(--vx-accent-line);
+  border-radius: 9px;
+  box-shadow: none;
+}
+
+.vx-app .message-avatar svg {
+  width: 15px;
+  height: 15px;
+}
+
+.vx-app .message-row.assistant .bubble {
+  max-width: none;
+  margin: 0;
+  padding: 2px 0 0;
+  font-size: var(--vx-text-read);
+  line-height: 1.7;
+  color: var(--vx-text-1);
+  background: none;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+}
+
+.vx-app .message-row.assistant .bubble p {
+  margin: 0 0 0.9em;
+}
+
+.vx-app .message-row.assistant .bubble > :last-child,
+.vx-app .message-row.assistant .bubble > * > :last-child {
+  margin-bottom: 0;
+}
+
+.vx-app .message-row.assistant .bubble h1,
+.vx-app .message-row.assistant .bubble h2,
+.vx-app .message-row.assistant .bubble h3 {
+  margin: 1.3em 0 0.5em;
+  font-family: var(--vx-font-ui);
+  font-weight: 600;
+  line-height: 1.3;
+  color: var(--vx-text-1);
+}
+
+.vx-app .message-row.assistant .bubble h1 { font-size: 21px; }
+.vx-app .message-row.assistant .bubble h2 { font-size: 19px; }
+.vx-app .message-row.assistant .bubble h3 { font-size: 17px; }
+
+.vx-app .message-row.assistant .bubble strong {
+  font-weight: 600;
+  color: var(--vx-text-1);
+}
+
+.vx-app .message-row.assistant .bubble em {
+  color: var(--vx-text-1);
+}
+
+.vx-app .message-row.assistant .bubble ul,
+.vx-app .message-row.assistant .bubble ol {
+  margin: 0 0 1em;
+  padding-left: 1.35em;
+}
+
+.vx-app .message-row.assistant .bubble li {
+  margin: 0.3em 0;
+  padding-left: 0.2em;
+}
+
+.vx-app .message-row.assistant .bubble li::marker {
+  color: var(--vx-text-3);
+}
+
+.vx-app .message-row.assistant .bubble a {
+  color: var(--vx-accent-text);
+  text-decoration: underline;
+  text-decoration-color: rgba(130, 170, 245, 0.35);
+  text-underline-offset: 3px;
+}
+
+.vx-app .message-row.assistant .bubble a:hover {
+  text-decoration-color: currentColor;
+}
+
+.vx-app .message-row.assistant .bubble code {
+  padding: 1px 5px;
+  font-size: 0.9em;
+  background: var(--vx-surface-3);
+  border-radius: 5px;
+}
+
+.vx-app .message-row.assistant .bubble pre {
+  padding: 14px 16px;
+  overflow-x: auto;
+  background: var(--vx-surface-1);
+  border: 1px solid var(--vx-border);
+  border-radius: var(--vx-r-md);
+}
+
+.vx-app .message-row.assistant .bubble blockquote {
+  margin: 0 0 1em;
+  padding: 2px 0 2px 16px;
+  color: var(--vx-text-2);
+  border-left: 2px solid var(--vx-accent-line);
+}
+
+.vx-app .message-row.assistant .bubble table {
+  width: 100%;
+  margin: 0 0 1em;
+  font-size: var(--vx-text-md);
+  border-collapse: collapse;
+}
+
+.vx-app .message-row.assistant .bubble th,
+.vx-app .message-row.assistant .bubble td {
+  padding: 8px 10px;
+  text-align: left;
+  border-bottom: 1px solid var(--vx-border-2);
+}
+
+.vx-app .message-row.assistant .bubble th {
+  font-weight: 600;
+  color: var(--vx-text-2);
+}
+
+.vx-app .message-row.assistant .bubble hr {
+  margin: 1.4em 0;
+  border: 0;
+  border-top: 1px solid var(--vx-border-2);
+}
+
+/* Assistant indented under its avatar */
+.vx-app .message-row.assistant .message-failure,
+.vx-app .message-row.assistant > .message-actions {
+  margin-left: 42px;
+}
+
+/* ---------- Message actions (hover) ---------- */
+
+.vx-app .message-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 2px;
+  min-height: 30px;
+  margin: 6px 0 0 -6px;
+  padding: 0;
+  background: none;
+  border: 0;
+  opacity: 0;
+  transition: opacity var(--vx-t) var(--vx-ease);
+}
+
+.vx-app .message-body.user .message-actions {
+  flex-wrap: nowrap;
+  min-height: 0;
+  margin: 0;
+}
+
+.vx-app .message-row:hover .message-actions,
+.vx-app .message-row:focus-within .message-actions,
+.vx-app .message-row.assistant:last-of-type .message-actions {
+  opacity: 1;
+}
+@media (hover: none) {
+  .vx-app .message-actions {
+    opacity: 1;
+  }
+}
+
+.vx-app .message-actions button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  min-width: 30px;
+  height: 30px;
+  padding: 0 7px;
+  font: 500 var(--vx-text-sm)/1 var(--vx-font-ui);
+  color: var(--vx-text-3);
+  cursor: pointer;
+  background: transparent;
+  border: 0;
+  border-radius: var(--vx-r-sm);
+  box-shadow: none;
+  transition: background var(--vx-t-fast) var(--vx-ease), color var(--vx-t-fast) var(--vx-ease);
+}
+
+.vx-app .message-actions button:hover {
+  color: var(--vx-text-1);
+  background: var(--vx-surface-3);
+}
+
+.vx-app .message-actions button[aria-pressed='true'] {
+  color: var(--vx-blue);
+}
+
+.vx-app .message-actions > span {
+  margin-right: 6px;
+  font-size: var(--vx-text-sm);
+  color: var(--vx-text-3);
+}
+
+.vx-app .answer-switcher {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  margin-left: 4px;
+  font-size: var(--vx-text-sm);
+  font-variant-numeric: tabular-nums;
+  color: var(--vx-text-3);
+}
+
+/* Stopped / failed */
+.vx-app .message-row > .message-actions {
+  opacity: 1;
+}
+
+.vx-app .message-failure {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px 12px;
+  max-width: 600px;
+  margin-top: 4px;
+  padding: 12px 14px;
+  font-size: var(--vx-text-md);
+  line-height: 1.5;
+  color: var(--vx-text-2);
+  background: var(--vx-danger-soft);
+  border: 1px solid var(--vx-danger-line);
+  border-radius: var(--vx-r-md);
+}
+
+.vx-app .message-failure > svg {
+  flex: 0 0 auto;
+  color: var(--vx-danger);
+}
+
+.vx-app .message-failure p {
+  flex: 1 1 240px;
+  margin: 0;
+}
+
+.vx-app .retry-button {
+  display: inline-flex;
+  align-items: center;
+  min-height: 32px;
+  margin: 0;
+  padding: 0 14px;
+  font: 500 var(--vx-text-md)/1 var(--vx-font-ui);
+  color: var(--vx-text-1);
+  cursor: pointer;
+  background: var(--vx-surface-3);
+  border: 1px solid var(--vx-border-2);
+  border-radius: var(--vx-r-sm);
+}
+
+.vx-app .retry-button:hover:not(:disabled) {
+  background: var(--vx-surface-4);
+}
+
+.vx-app .retry-button:disabled {
+  color: var(--vx-text-3);
+  cursor: default;
+}
+
+/* Hide the empty bubble of a failed turn: the notice says it all */
+.vx-app .message-row.assistant:has(.message-failure) .bubble:not(:has(p, li)) {
+  display: none;
+}
+
+/* Thinking indicator */
+.vx-app .loading-bubble {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 4px 0 0;
+  font-size: var(--vx-text-md);
+  color: var(--vx-text-3);
+  background: none;
+  border: 0;
+}
+
+.vx-app .loading-bubble .dots {
+  display: inline-flex;
+  gap: 4px;
+}
+
+.vx-app .loading-bubble .dots i {
+  width: 5px;
+  height: 5px;
+  background: var(--vx-blue);
+  border-radius: 50%;
+  animation: vx-dot 1.2s ease-in-out infinite;
+}
+
+.vx-app .loading-bubble .dots i:nth-child(2) { animation-delay: 0.15s; }
+.vx-app .loading-bubble .dots i:nth-child(3) { animation-delay: 0.3s; }
+@keyframes vx-dot {
+  0%, 80%, 100% { opacity: 0.25; transform: translateY(0); }
+  40% { opacity: 1; transform: translateY(-3px); }
+}
+
+.vx-app .message-row[aria-label='Grace is working'] .message-avatar {
+  animation: vx-glow 1.6s ease-in-out infinite;
+}
+@keyframes vx-glow {
+  50% { box-shadow: 0 0 0 5px var(--vx-accent-soft); }
+}
+
+.vx-app .stream-status-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin: 0 0 8px 42px;
+  padding: 4px 10px;
+  font-size: var(--vx-text-xs);
+  color: var(--vx-text-3);
+  background: var(--vx-surface-1);
+  border: 1px solid var(--vx-border);
+  border-radius: var(--vx-r-full);
+}
+
+.vx-app .stream-status-chip svg {
+  color: var(--vx-blue);
+}
+
+/* Movies / people mentioned in an answer */
+.vx-app .answer-movies {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 14px 0 0;
+}
+
+.vx-app .answer-movie {
+  display: inline-flex;
+  align-items: stretch;
+  overflow: hidden;
+  background: var(--vx-surface-1);
+  border: 1px solid var(--vx-border-2);
+  border-radius: var(--vx-r-full);
+}
+
+.vx-app .answer-movie-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  min-height: 32px;
+  padding: 0 12px;
+  font: 500 var(--vx-text-sm)/1 var(--vx-font-ui);
+  color: var(--vx-text-1);
+  cursor: pointer;
+  background: var(--vx-surface-1);
+  border: 1px solid var(--vx-border-2);
+  border-radius: var(--vx-r-full);
+  opacity: 1;
+}
+
+.vx-app .answer-movie .answer-movie-link {
+  border: 0;
+  border-radius: 0;
+}
+
+.vx-app .answer-movie-link svg {
+  color: var(--vx-blue);
+}
+
+.vx-app .answer-movie-link:hover {
+  background: var(--vx-surface-3);
+}
+
+.vx-app .answer-movie-save {
+  display: grid;
+  place-items: center;
+  width: 32px;
+  padding: 0;
+  color: var(--vx-text-3);
+  cursor: pointer;
+  background: transparent;
+  border: 0;
+  border-left: 1px solid var(--vx-border-2);
+}
+
+.vx-app .answer-movie-save:hover,
+.vx-app .answer-movie-save[aria-pressed='true'] {
+  color: var(--vx-blue);
+  background: var(--vx-surface-3);
+}
+
+/* Streaming providers strip */
+.vx-app .message-streaming-providers,
+.vx-app .message-provider-item {
+  margin-left: 42px;
+}
+
+.vx-app .jump-to-latest {
+  position: absolute;
+  bottom: 120px;
+  left: 50%;
+  z-index: 5;
+  padding: 8px 14px;
+  font: 500 var(--vx-text-sm)/1 var(--vx-font-ui);
+  color: var(--vx-text-1);
+  cursor: pointer;
+  background: var(--vx-surface-3);
+  border: 1px solid var(--vx-border-2);
+  border-radius: var(--vx-r-full);
+  box-shadow: var(--vx-shadow-2);
+  transform: translateX(-50%);
+}
+
+.vx-app .offline-banner {
+  max-width: var(--vx-column);
+  margin: 8px auto 0;
+  padding: 10px 14px;
+  font-size: var(--vx-text-md);
+  color: var(--vx-accent-text);
+  background: var(--vx-accent-soft);
+  border: 1px solid var(--vx-accent-line);
+  border-radius: var(--vx-r-md);
+}
+
+/* ---------- Composer ---------- */
+
+.vx-app .intelligence-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  width: calc(100% - 48px);
+  max-width: var(--vx-column);
+  margin: 0 auto 10px;
+  padding: 0;
+  background: none;
+  border: 0;
+}
+
+.vx-app .intelligence-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 30px;
+  padding: 0 12px;
+  font: 500 var(--vx-text-sm)/1 var(--vx-font-ui);
+  color: var(--vx-text-2);
+  cursor: pointer;
+  background: var(--vx-surface-1);
+  border: 1px solid var(--vx-border-2);
+  border-radius: var(--vx-r-full);
+}
+
+.vx-app .intelligence-chip svg {
+  color: var(--vx-blue);
+}
+
+.vx-app .intelligence-chip:hover:not(:disabled) {
+  color: var(--vx-text-1);
+  border-color: var(--vx-border-3);
+}
+
+.vx-app form.composer {
+  position: relative;
+  z-index: 2;
+  flex: 0 0 auto;
+  width: 100%;
+  margin: 0;
+  padding: 0 24px 20px;
+  background: linear-gradient(to bottom, transparent, var(--vx-bg) 28px);
+  border: 0;
+  box-shadow: none;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+
+.vx-app form.composer::before {
+  display: none;
+}
+
+.vx-app .composer-box {
+  position: relative;
+  display: grid;
+  grid-template-columns: auto auto 1fr auto;
+  align-items: center;
+  gap: 2px 4px;
+  width: 100%;
+  max-width: var(--vx-column);
+  margin: 0 auto;
+  padding: 10px 10px 8px 12px;
+  background: var(--vx-surface-2);
+  border: 1px solid var(--vx-border-2);
+  border-radius: var(--vx-r-xl);
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.35);
+  transition: border-color var(--vx-t) var(--vx-ease), box-shadow var(--vx-t) var(--vx-ease);
+}
+
+.vx-app .composer-box:focus-within {
+  border-color: var(--vx-border-3);
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.35), 0 0 0 4px rgba(92, 145, 242, 0.06);
+}
+
+.vx-app .composer-box.dragging {
+  border-color: var(--vx-accent-line);
+  border-style: dashed;
+}
+
+.vx-app .composer-box > .attachment-previews,
+.vx-app .composer-box > .attachment-notice {
+  grid-column: 1 / -1;
+  order: 0;
+}
+
+.vx-app .composer-box > textarea {
+  grid-column: 1 / -1;
+  order: 1;
+  width: 100%;
+  min-height: 28px;
+  max-height: 260px;
+  margin: 0;
+  padding: 6px 6px 8px;
+  font: 400 var(--vx-text-read)/1.55 var(--vx-font-ui);
+  color: var(--vx-text-1);
+  resize: none;
+  background: transparent;
+  border: 0;
+  outline: none;
+  box-shadow: none;
+}
+
+.vx-app .composer-box > textarea::placeholder {
+  color: var(--vx-text-4);
+}
+
+.vx-app .composer-box > textarea:hover,
+.vx-app .composer-box > textarea:focus {
+  background: transparent;
+  border: 0;
+  box-shadow: none;
+}
+
+.vx-app .composer-box > .composer-tool {
+  order: 2;
+  display: inline-grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  padding: 0;
+  color: var(--vx-text-3);
+  cursor: pointer;
+  background: transparent;
+  border: 0;
+  border-radius: var(--vx-r-sm);
+}
+
+.vx-app .composer-box > .composer-tool:hover:not(:disabled) {
+  color: var(--vx-text-1);
+  background: var(--vx-surface-4);
+}
+
+.vx-app .composer-box > .composer-tool.listening {
+  color: var(--vx-danger);
+  background: var(--vx-danger-soft);
+}
+
+.vx-app .composer-box > .composer-tool:disabled {
+  cursor: not-allowed;
+  opacity: 0.4;
+}
+
+.vx-app .composer-box > .composer-counter {
+  order: 3;
+  grid-column: 3;
+  justify-self: end;
+  padding-right: 8px;
+  font-size: var(--vx-text-xs);
+  color: var(--vx-text-3);
+}
+
+.vx-app .composer-box > .send-button {
+  order: 4;
+  grid-column: 4;
+  display: inline-grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  color: var(--vx-accent-ink);
+  cursor: pointer;
+  background: var(--vx-accent);
+  border: 0;
+  border-radius: 12px;
+  box-shadow: none;
+  transition: background var(--vx-t-fast) var(--vx-ease), opacity var(--vx-t-fast) var(--vx-ease), transform var(--vx-t-fast) var(--vx-ease);
+}
+
+.vx-app .composer-box > .send-button:hover:not(:disabled) {
+  background: var(--vx-accent-hover);
+}
+
+.vx-app .composer-box > .send-button:active:not(:disabled) {
+  transform: scale(0.95);
+}
+
+.vx-app .composer-box > .send-button:disabled {
+  color: var(--vx-text-3);
+  cursor: not-allowed;
+  background: var(--vx-surface-4);
+  opacity: 1;
+}
+
+.vx-app .composer-box > .stop-button {
+  color: var(--vx-text-1);
+  background: var(--vx-surface-4);
+  border: 1px solid var(--vx-border-3);
+}
+
+.vx-app .composer-box > .stop-button:hover {
+  background: var(--vx-surface-3);
+}
+
+.vx-app .composer-box > .stop-button span {
+  font-size: 11px;
+}
+
+.vx-app .attachment-previews {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 0 0 6px;
+  padding: 2px;
+  list-style: none;
+}
+
+.vx-app .attachment-notice {
+  margin: 0 0 6px;
+  font-size: var(--vx-text-sm);
+  color: var(--vx-text-2);
+}
+
+/* ---------- Home: greeting + centred composer + suggestions ---------- */
+
+.vx-app .chat-shell.is-home {
+  justify-content: center;
+  padding-bottom: 10vh;
+}
+
+.vx-app .chat-shell.is-home .messages {
+  flex: 0 0 auto;
+  padding-top: 0;
+  padding-bottom: 26px;
+  overflow: visible;
+}
+
+.vx-app .chat-shell.is-home form.composer {
+  padding-bottom: 0;
+  background: none;
+}
+
+.vx-app .chat-shell.is-home .composer-box {
+  max-width: 680px;
+  min-height: 112px;
+  align-content: space-between;
+  padding: 14px 12px 10px 14px;
+}
+
+.vx-home-greeting {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 14px 16px;
+  max-width: 680px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.vx-home-greeting h1 {
+  font-size: clamp(34px, 4.2vw, 50px);
+  line-height: 1.1;
+}
+
+.vx-home-mark {
+  display: inline-grid;
+  place-items: center;
+  color: var(--vx-blue);
+  filter: drop-shadow(0 0 14px rgba(92, 145, 242, 0.35));
+}
+
+.vx-home-taste {
+  display: inline-flex;
+  flex-basis: 100%;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  max-width: max-content;
+  margin: 2px auto 0;
+  padding: 7px 12px;
+  font-size: var(--vx-text-sm);
+  color: var(--vx-accent-text);
+  text-decoration: none;
+  background: var(--vx-accent-soft);
+  border: 1px solid var(--vx-accent-line);
+  border-radius: var(--vx-r-full);
+}
+
+.vx-home-taste:hover {
+  background: var(--vx-accent-soft-2);
+}
+
+.vx-suggestions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+  max-width: 680px;
+  margin: 18px auto 0;
+  padding: 0 24px;
+}
+
+.vx-suggestion {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 36px;
+  padding: 0 14px;
+  font: 500 var(--vx-text-md)/1 var(--vx-font-ui);
+  color: var(--vx-text-2);
+  cursor: pointer;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid var(--vx-border-2);
+  border-radius: var(--vx-r-full);
+  transition: all var(--vx-t-fast) var(--vx-ease);
+}
+
+.vx-suggestion svg {
+  color: var(--vx-text-3);
+  transition: color var(--vx-t-fast) var(--vx-ease);
+}
+
+.vx-suggestion:hover:not(:disabled) {
+  color: var(--vx-text-1);
+  background: var(--vx-surface-2);
+  border-color: var(--vx-border-3);
+}
+
+.vx-suggestion:hover:not(:disabled) svg {
+  color: var(--vx-blue);
+}
+
+.vx-suggestion:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+@media (max-width: 760px) {
+  .vx-app .messages {
+    padding: 16px 16px 24px;
+  }
+
+  .vx-app form.composer {
+    padding: 0 12px 12px;
+  }
+
+  .vx-app .composer-box {
+    border-radius: 20px;
+  }
+
+  .vx-app .message-avatar {
+    display: none;
+  }
+
+  .vx-app .message-row.assistant .message-failure,
+  .vx-app .message-row.assistant > .message-actions,
+  .vx-app .stream-status-chip,
+  .vx-app .message-streaming-providers,
+  .vx-app .message-provider-item {
+    margin-left: 0;
+  }
+
+  .vx-app .message-row.user .bubble {
+    max-width: 88%;
+  }
+
+  .vx-app .chat-shell.is-home {
+    justify-content: flex-end;
+    padding-bottom: 0;
+  }
+
+  .vx-app .chat-shell.is-home .messages {
+    flex: 1 1 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .vx-app .chat-shell.is-home .composer-box {
+    min-height: 0;
+  }
+
+  .vx-home-greeting {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .vx-home-greeting h1 {
+    font-size: 34px;
+  }
+
+  .vx-suggestions {
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    margin: 12px 0 14px;
+    padding: 0 12px;
+    overflow-x: auto;
+    scrollbar-width: none;
+    mask-image: linear-gradient(to right, #000000 85%, transparent);
+    -webkit-mask-image: linear-gradient(to right, #000000 85%, transparent);
+  }
+
+  .vx-suggestions::-webkit-scrollbar {
+    display: none;
+  }
+
+  .vx-suggestion {
+    flex: 0 0 auto;
+  }
+
+  .vx-app .intelligence-chips {
+    flex-wrap: nowrap;
+    width: auto;
+    margin: 0 12px 8px;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+}
+
+/* A failed turn has nothing to copy or read aloud */
+.vx-app .message-row.assistant:has(.message-failure) .message-actions {
+  display: none;
+}
+
+/* Sources: a quiet disclosure, not a badge competing with the answer */
+.vx-app .answer-sources {
+  margin: 12px 0 0;
+  padding: 0;
+  background: none;
+  border: 0;
+}
+
+.vx-app .answer-sources > summary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 30px;
+  padding: 0 12px;
+  font: 500 var(--vx-text-sm)/1 var(--vx-font-ui);
+  color: var(--vx-text-2);
+  list-style: none;
+  cursor: pointer;
+  background: var(--vx-surface-1);
+  border: 1px solid var(--vx-border-2);
+  border-radius: var(--vx-r-full);
+}
+
+.vx-app .answer-sources > summary::-webkit-details-marker {
+  display: none;
+}
+
+.vx-app .answer-sources > summary:hover {
+  color: var(--vx-text-1);
+  border-color: var(--vx-border-3);
+}
+
+.vx-app .answer-sources .evidence-tag {
+  padding: 0 0 0 8px;
+  font-size: var(--vx-text-xs);
+  font-weight: 500;
+  letter-spacing: 0;
+  text-transform: none;
+  color: var(--vx-success);
+  background: none;
+  border: 0;
+  border-left: 1px solid var(--vx-border-2);
+  border-radius: 0;
+}
+
+.vx-app .answer-sources .evidence-tag.status-conflicting,
+.vx-app .answer-sources .evidence-tag.status-limited_evidence,
+.vx-app .answer-sources .evidence-tag.status-reported {
+  color: var(--vx-accent-text);
+}
+
+.vx-app .answer-sources[open] > ul,
+.vx-app .answer-sources[open] > ol {
+  margin: 10px 0 0;
+  padding: 12px 14px;
+  background: var(--vx-surface-1);
+  border: 1px solid var(--vx-border);
+  border-radius: var(--vx-r-md);
+}
+
+/* "What went wrong?" after a thumbs down (C9). */
+.vx-app .feedback-reasons {
+  max-width: 560px;
+  margin: 8px 0 2px;
+  padding: 10px 12px;
+  background: var(--vx-surface-2);
+  border: 1px solid var(--vx-border);
+  border-radius: var(--vx-r-md);
+}
+
+.vx-app .feedback-thanks {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 10px;
+  font-size: var(--vx-text-sm);
+  color: var(--vx-text-2);
+}
+
+.vx-app .feedback-reasons-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+  font-size: var(--vx-text-sm);
+  color: var(--vx-text-2);
+}
+
+.vx-app .feedback-reasons-close {
+  display: grid;
+  place-items: center;
+  width: 26px;
+  height: 26px;
+  padding: 0;
+  color: var(--vx-text-3);
+  background: transparent;
+  border: 0;
+  border-radius: var(--vx-r-sm);
+  cursor: pointer;
+}
+
+.vx-app .feedback-reasons-close:hover {
+  color: var(--vx-text-1);
+  background: var(--vx-surface-3);
+}
+
+.vx-app .feedback-reasons-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.vx-app .feedback-reasons-chips button {
+  min-height: 30px;
+  padding: 0 11px;
+  font: 400 var(--vx-text-sm)/1 var(--vx-font-ui);
+  color: var(--vx-text-2);
+  background: var(--vx-surface-1);
+  border: 1px solid var(--vx-border-2);
+  border-radius: 999px;
+  cursor: pointer;
+}
+
+.vx-app .feedback-reasons-chips button:hover {
+  color: var(--vx-text-1);
+  border-color: var(--vx-text-3);
+}
+
+.vx-app .feedback-reasons-chips button.is-selected {
+  color: var(--vx-text-1);
+  background: color-mix(in srgb, var(--vx-blue) 18%, var(--vx-surface-1));
+  border-color: var(--vx-blue);
+}
+
+.vx-app .feedback-reasons-note {
+  display: flex;
+  gap: 8px;
+  align-items: flex-end;
+  margin-top: 10px;
+}
+
+.vx-app .feedback-reasons-note textarea {
+  flex: 1 1 auto;
+  min-width: 0;
+  padding: 8px 10px;
+  font: 400 var(--vx-text-sm)/1.4 var(--vx-font-ui);
+  color: var(--vx-text-1);
+  resize: vertical;
+  background: var(--vx-surface-1);
+  border: 1px solid var(--vx-border-2);
+  border-radius: var(--vx-r-sm);
+}
+
+.vx-app .feedback-reasons-send {
+  min-height: 34px;
+  padding: 0 14px;
+  font: 500 var(--vx-text-sm)/1 var(--vx-font-ui);
+  color: var(--vx-surface-1);
+  background: var(--vx-blue);
+  border: 0;
+  border-radius: var(--vx-r-sm);
+  cursor: pointer;
+}
+
+.vx-app .feedback-reasons-send:disabled {
+  opacity: 0.6;
+  cursor: progress;
+}
+
+/* Next steps under the latest answer, or one-tap answers to its question (B2, B3). */
+.vx-app .follow-ups {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 10px 0 2px;
+}
+
+.vx-app .follow-ups button {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  max-width: 100%;
+  min-height: 32px;
+  padding: 0 12px;
+  font: 400 var(--vx-text-sm)/1.2 var(--vx-font-ui);
+  color: var(--vx-text-2);
+  text-align: left;
+  background: transparent;
+  border: 1px solid var(--vx-border-2);
+  border-radius: var(--vx-r-full);
+  cursor: pointer;
+  transition: color 120ms ease, border-color 120ms ease, background 120ms ease;
+}
+
+.vx-app .follow-ups button span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.vx-app .follow-ups button svg {
+  flex: 0 0 auto;
+  color: var(--vx-text-3);
+}
+
+.vx-app .follow-ups button:hover:not(:disabled) {
+  color: var(--vx-text-1);
+  background: var(--vx-surface-2);
+  border-color: var(--vx-border-3);
+}
+
+.vx-app .follow-ups.is-options button {
+  color: var(--vx-text-1);
+  background: var(--vx-accent-soft);
+  border-color: var(--vx-accent-soft-2);
+}
+
+.vx-app .follow-ups.is-options button:hover:not(:disabled) {
+  background: var(--vx-accent-soft-2);
+}
+
+.vx-app .follow-ups button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* "Memory updated" with Undo, under the reply that saved a stated taste (C2). */
+.vx-app .memory-notice {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 10px;
+  max-width: 560px;
+  margin: 8px 0 2px;
+  padding: 8px 12px;
+  font-size: var(--vx-text-sm);
+  color: var(--vx-text-2);
+  background: var(--vx-accent-soft);
+  border: 1px solid var(--vx-accent-soft-2);
+  border-radius: var(--vx-r-md);
+}
+
+.vx-app .action-notice-text {
+  flex: 1 1 200px;
+  min-width: 0;
+  color: var(--vx-text-1);
+}
+
+.vx-app .action-notice-text p {
+  margin: 0;
+}
+
+.vx-app .memory-notice > svg {
+  flex: 0 0 auto;
+  color: var(--vx-accent-text);
+}
+
+.vx-app .memory-notice-text {
+  display: flex;
+  flex: 1 1 200px;
+  flex-wrap: wrap;
+  gap: 2px 8px;
+  min-width: 0;
+}
+
+.vx-app .memory-notice-text strong {
+  font-weight: 600;
+  color: var(--vx-text-1);
+}
+
+.vx-app .memory-notice-actions {
+  display: inline-flex;
+  gap: 4px;
+}
+
+.vx-app .memory-notice-actions button,
+.vx-app .memory-notice-actions a {
+  padding: 4px 8px;
+  font: 500 var(--vx-text-sm)/1 var(--vx-font-ui);
+  color: var(--vx-accent-text);
+  text-decoration: none;
+  background: transparent;
+  border: 0;
+  border-radius: var(--vx-r-xs);
+  cursor: pointer;
+}
+
+.vx-app .memory-notice-actions button:hover,
+.vx-app .memory-notice-actions a:hover {
+  background: var(--vx-accent-soft-2);
+}
+
+.vx-app .memory-notice.is-removed {
+  background: transparent;
+  border-color: var(--vx-border);
+}
+
+.vx-app .memory-notice-error {
+  flex-basis: 100%;
+  color: var(--vx-danger);
+}
+
+/* Slash commands above the message box (C6). */
+.vx-app .composer-commands {
+  position: absolute;
+  right: 0;
+  bottom: calc(100% + 8px);
+  left: 0;
+  z-index: 20;
+  max-height: 320px;
+  margin: 0;
+  padding: 6px;
+  overflow-y: auto;
+  list-style: none;
+  background: var(--vx-surface-2);
+  border: 1px solid var(--vx-border-2);
+  border-radius: var(--vx-r-lg);
+  box-shadow: var(--vx-shadow-3);
+}
+
+.vx-app .composer-commands li {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  padding: 8px 10px;
+  font-size: var(--vx-text-sm);
+  color: var(--vx-text-2);
+  border-radius: var(--vx-r-sm);
+  cursor: pointer;
+}
+
+.vx-app .composer-commands li.is-active {
+  color: var(--vx-text-1);
+  background: var(--vx-surface-3);
+}
+
+.vx-app .composer-commands code {
+  min-width: 88px;
+  font-size: var(--vx-text-sm);
+  color: var(--vx-accent-text);
+}
+
+/* What Grace did for an answer (B4): live while working, folded once written. */
+.vx-app .step-list {
+  margin: 0 0 8px 42px;
+  font-size: var(--vx-text-xs);
+  color: var(--vx-text-3);
+}
+
+.vx-app .step-list ol,
+.vx-app ol.step-list {
+  display: grid;
+  gap: 4px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.vx-app .step-list li {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.vx-app .step-list li svg {
+  flex: 0 0 auto;
+  color: var(--vx-success);
+}
+
+.vx-app .step-list li.is-current {
+  color: var(--vx-text-2);
+}
+
+.vx-app .step-spinner {
+  flex: 0 0 auto;
+  width: 11px;
+  height: 11px;
+  border: 1.5px solid var(--vx-border-3);
+  border-top-color: var(--vx-accent-text);
+  border-radius: 50%;
+  animation: vx-step-spin 0.8s linear infinite;
+}
+
+@keyframes vx-step-spin {
+  to { transform: rotate(360deg); }
+}
+
+.vx-app details.step-list summary {
+  display: inline-block;
+  padding: 2px 8px;
+  color: var(--vx-text-3);
+  list-style: none;
+  border: 1px solid var(--vx-border);
+  border-radius: var(--vx-r-full);
+  cursor: pointer;
+}
+
+.vx-app details.step-list summary::-webkit-details-marker {
+  display: none;
+}
+
+.vx-app details.step-list[open] ol {
+  margin-top: 8px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .vx-app .step-spinner {
+    animation: none;
+  }
+}

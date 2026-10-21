@@ -1,0 +1,67 @@
+# Local environment and secrets
+.env
+.env.*
+**/.env
+**/.env.*
+!.env.example
+!**/.env.example
+
+# Local Python and test artifacts
+__pycache__/
+**/__pycache__/
+*.py[cod]
+**/*.py[cod]
+.pytest_cache/
+Backend/.mypy_cache/
+Backend/.ruff_cache/
+Frontend/node_modules/
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.hypothesis/
+**/.pytest_cache/
+**/.ruff_cache/
+**/.mypy_cache/
+**/.hypothesis/
+coverage/
+**/coverage/
+.coverage
+.coverage.*
+coverage.xml
+**/coverage.xml
+pytest_failures.txt
+**/pytest_failures.txt
+agent_output.txt
+**/agent_output.txt
+ci-only-metrics
+Backend/debug_*.py
+*.sqlite
+*.sqlite-*
+*.sqlite3
+*.sqlite3-*
+test-results/
+**/test-results/
+**/venv/
+**/.venv/
+
+# Databases and compiled frontend output
+*.db
+*.db-*
+**/*.db
+**/*.db-*
+Frontend/node_modules/
+Frontend/dist/
+Frontend/.vite/
+ops/secrets/
+backups/
+*.dump
+*.dump.age
+release/
+
+# Local work output: live-eval reports (transcripts), files set aside for deletion,
+# architecture snapshots, obsolete probes and ad-hoc archives
+eval-reports/
+_to_delete/
+.archify/
+audit/probes/
+*.tgz

@@ -1,0 +1,92 @@
+from fastapi import APIRouter
+
+from app import main
+
+router = APIRouter(prefix="/api/v1", tags=["movies"])
+
+router.add_api_route("/movies/search", main.movie_search_v1, methods=["GET"])
+router.add_api_route(
+    "/movies/compare/visuals",
+    main.compare_visuals_v1,
+    methods=["GET"],
+)
+router.add_api_route(
+    "/movies/{tmdb_id}/details",
+    main.movie_details_v1,
+    methods=["GET"],
+)
+router.add_api_route(
+    "/movies/{tmdb_id}/intelligence",
+    main.movie_intelligence_v1,
+    methods=["GET"],
+)
+router.add_api_route(
+    "/movies/{tmdb_id}/intelligence/{category}",
+    main.movie_intelligence_category_v1,
+    methods=["GET"],
+)
+router.add_api_route(
+    "/movies/{tmdb_id}/visuals",
+    main.movie_visuals_v1,
+    methods=["GET"],
+)
+router.add_api_route(
+    "/movies/{tmdb_id}/reviews",
+    main.movie_reviews_v1,
+    methods=["GET"],
+)
+router.add_api_route(
+    "/movies/{tmdb_id}/recommendations",
+    main.movie_recommendations_v1,
+    methods=["GET"],
+)
+router.add_api_route(
+    "/movies/{tmdb_id}/similar",
+    main.movie_similar_v1,
+    methods=["GET"],
+)
+router.add_api_route(
+    "/movies/{tmdb_id}/watchlist",
+    main.add_movie_watchlist_v1,
+    methods=["POST"],
+)
+router.add_api_route(
+    "/guest/watchlist/{tmdb_id}/undo",
+    main.undo_guest_watchlist_removal,
+    methods=["POST"],
+)
+router.add_api_route(
+    "/movies/{tmdb_id}/watched",
+    main.mark_movie_watched_v1,
+    methods=["POST"],
+)
+router.add_api_route(
+    "/movies/{tmdb_id}/move-to-watched",
+    main.move_movie_to_watched_v1,
+    methods=["POST"],
+)
+router.add_api_route(
+    "/movies/{tmdb_id}/watchlist",
+    main.remove_movie_watchlist_v1,
+    methods=["DELETE"],
+)
+router.add_api_route(
+    "/movies/{tmdb_id}/watched",
+    main.unmark_movie_watched_v1,
+    methods=["DELETE"],
+)
+router.add_api_route(
+    "/movies/{tmdb_id}/rating",
+    main.rate_movie_v1,
+    methods=["PUT"],
+)
+router.add_api_route(
+    "/movies/{tmdb_id}/feedback",
+    main.movie_feedback_v1,
+    methods=["POST"],
+)
+router.add_api_route(
+    "/movies/{tmdb_id}",
+    main.saved_movie_v1,
+    methods=["GET"],
+)

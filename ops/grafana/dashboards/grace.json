@@ -1,0 +1,70 @@
+{
+  "annotations": { "list": [] },
+  "editable": false,
+  "panels": [
+    {
+      "datasource": { "type": "prometheus", "uid": "prometheus" },
+      "fieldConfig": { "defaults": { "unit": "percentunit", "min": 0, "max": 1 }, "overrides": [] },
+      "gridPos": { "h": 8, "w": 8, "x": 0, "y": 0 },
+      "id": 1,
+      "targets": [{ "expr": "1 - sum(rate(grace_http_requests_total{status=~\"5..\"}[5m])) / clamp_min(sum(rate(grace_http_requests_total[5m])), 1e-9)", "legendFormat": "availability" }],
+      "title": "Availability (5m)",
+      "type": "stat"
+    },
+    {
+      "datasource": { "type": "prometheus", "uid": "prometheus" },
+      "fieldConfig": { "defaults": { "unit": "s" }, "overrides": [] },
+      "gridPos": { "h": 8, "w": 8, "x": 8, "y": 0 },
+      "id": 2,
+      "targets": [{ "expr": "histogram_quantile(0.95, sum by (le) (rate(grace_time_to_first_token_seconds_bucket[5m])))", "legendFormat": "p95 TTFT" }],
+      "title": "Time to first token p95",
+      "type": "timeseries"
+    },
+    {
+      "datasource": { "type": "prometheus", "uid": "prometheus" },
+      "fieldConfig": { "defaults": { "unit": "percentunit" }, "overrides": [] },
+      "gridPos": { "h": 8, "w": 8, "x": 16, "y": 0 },
+      "id": 3,
+      "targets": [{ "expr": "sum(rate(grace_chat_fallback_turns_total[5m])) / clamp_min(sum(rate(grace_chat_turns_total[5m])), 1e-9)", "legendFormat": "fallback rate" }],
+      "title": "Fallback rate",
+      "type": "timeseries"
+    },
+    {
+      "datasource": { "type": "prometheus", "uid": "prometheus" },
+      "fieldConfig": { "defaults": { "unit": "s" }, "overrides": [] },
+      "gridPos": { "h": 9, "w": 12, "x": 0, "y": 8 },
+      "id": 4,
+      "targets": [{ "expr": "histogram_quantile(0.95, sum by (le, stage) (rate(grace_agent_stage_duration_seconds_bucket[5m])))", "legendFormat": "{{stage}}" }],
+      "title": "Agent stage latency p95",
+      "type": "timeseries"
+    },
+    {
+      "datasource": { "type": "prometheus", "uid": "prometheus" },
+      "fieldConfig": { "defaults": { "unit": "short" }, "overrides": [] },
+      "gridPos": { "h": 9, "w": 12, "x": 12, "y": 8 },
+      "id": 5,
+      "targets": [
+        { "expr": "sum by (provider) (rate(grace_provider_errors_total[5m]))", "legendFormat": "provider {{provider}}" },
+        { "expr": "sum by (reason) (rate(grace_fallback_events_total[5m]))", "legendFormat": "fallback {{reason}}" }
+      ],
+      "title": "Provider errors and fallback events",
+      "type": "timeseries"
+    },
+    {
+      "datasource": { "type": "prometheus", "uid": "prometheus" },
+      "fieldConfig": { "defaults": { "unit": "currencyUSD" }, "overrides": [] },
+      "gridPos": { "h": 8, "w": 12, "x": 0, "y": 17 },
+      "id": 6,
+      "targets": [{ "expr": "sum by (user, model) (grace_llm_cost_usd_total)", "legendFormat": "{{user}} / {{model}}" }],
+      "title": "Estimated LLM cost by pseudonymous user",
+      "type": "table"
+    }
+  ],
+  "schemaVersion": 39,
+  "tags": ["Grace", "slo"],
+  "templating": { "list": [] },
+  "time": { "from": "now-24h", "to": "now" },
+  "title": "Grace SLO and LLM Operations",
+  "uid": "grace-slo",
+  "version": 1
+}

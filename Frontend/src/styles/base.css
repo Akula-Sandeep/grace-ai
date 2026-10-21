@@ -1,0 +1,851 @@
+/* =========================================================
+   BASE + PRIMITIVES (uses tokens.css only)
+   ========================================================= */
+
+html,
+body {
+  background: var(--vx-bg);
+  color: var(--vx-text-1);
+  font-family: var(--vx-font-ui);
+  font-size: var(--vx-text-base);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+::selection {
+  color: var(--vx-accent-ink);
+  background: var(--vx-accent);
+}
+
+:focus-visible {
+  outline: none;
+  box-shadow: var(--vx-focus);
+}
+
+/* Landmarks focused by script on navigation (for screen readers) never show a ring */
+[tabindex='-1']:focus,
+[tabindex='-1']:focus-visible,
+main:focus {
+  outline: none;
+  box-shadow: none;
+}
+
+.vx-display {
+  margin: 0;
+  font-family: var(--vx-font-display);
+  font-weight: 400;
+  letter-spacing: -0.01em;
+  line-height: 1.08;
+  color: var(--vx-text-1);
+}
+
+.vx-display em {
+  font-style: italic;
+  color: var(--vx-accent-text);
+}
+
+.sr-only {
+  position: absolute !important;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ---------- Brand ---------- */
+
+.vx-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--vx-text-1);
+  text-decoration: none;
+}
+
+.vx-brand-mark {
+  display: inline-grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  color: var(--vx-blue);
+  background: radial-gradient(circle at 50% 35%, rgba(92, 145, 242, 0.2), rgba(92, 145, 242, 0.04) 70%);
+  border: 1px solid var(--vx-accent-line);
+  border-radius: 10px;
+}
+
+.vx-brand-name {
+  font-family: var(--vx-font-display);
+  font-size: 24px;
+  line-height: 1;
+  letter-spacing: 0.005em;
+}
+
+/* ---------- Buttons ---------- */
+
+.vx-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 38px;
+  padding: 0 16px;
+  font: 500 var(--vx-text-md)/1 var(--vx-font-ui);
+  color: var(--vx-text-1);
+  text-decoration: none;
+  white-space: nowrap;
+  cursor: pointer;
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: var(--vx-r-md);
+  transition:
+    background var(--vx-t-fast) var(--vx-ease),
+    border-color var(--vx-t-fast) var(--vx-ease),
+    color var(--vx-t-fast) var(--vx-ease),
+    transform var(--vx-t-fast) var(--vx-ease);
+}
+
+.vx-btn:active:not(:disabled) {
+  transform: translateY(1px);
+}
+
+.vx-btn:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.vx-btn-primary {
+  color: var(--vx-accent-ink);
+  background: var(--vx-accent);
+  border-color: var(--vx-accent);
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.25) inset, 0 6px 18px rgba(92, 145, 242, 0.14);
+}
+
+.vx-btn-primary:hover:not(:disabled) {
+  background: var(--vx-accent-hover);
+  border-color: var(--vx-accent-hover);
+}
+
+.vx-btn-primary:active:not(:disabled) {
+  background: var(--vx-accent-press);
+}
+
+.vx-btn-secondary {
+  background: var(--vx-surface-2);
+  border-color: var(--vx-border-2);
+}
+
+.vx-btn-secondary:hover:not(:disabled) {
+  background: var(--vx-surface-3);
+  border-color: var(--vx-border-3);
+}
+
+.vx-btn-ghost {
+  color: var(--vx-text-2);
+}
+
+.vx-btn-ghost:hover:not(:disabled) {
+  color: var(--vx-text-1);
+  background: var(--vx-surface-2);
+}
+
+.vx-btn-danger {
+  color: var(--vx-danger);
+  background: var(--vx-danger-soft);
+  border-color: var(--vx-danger-line);
+}
+
+.vx-btn-lg {
+  min-height: 46px;
+  padding: 0 20px;
+  font-size: var(--vx-text-base);
+}
+
+.vx-btn-sm {
+  min-height: 30px;
+  padding: 0 10px;
+  font-size: var(--vx-text-sm);
+  border-radius: var(--vx-r-sm);
+}
+
+.vx-btn-block {
+  width: 100%;
+}
+
+.vx-icon-btn {
+  display: inline-grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  padding: 0;
+  color: var(--vx-text-3);
+  cursor: pointer;
+  background: transparent;
+  border: 0;
+  border-radius: var(--vx-r-sm);
+  transition: background var(--vx-t-fast) var(--vx-ease), color var(--vx-t-fast) var(--vx-ease);
+}
+
+.vx-icon-btn:hover:not(:disabled) {
+  color: var(--vx-text-1);
+  background: var(--vx-surface-3);
+}
+
+.vx-icon-btn:disabled {
+  cursor: not-allowed;
+  opacity: 0.4;
+}
+
+.vx-link,
+.vx-link-quiet {
+  padding: 0;
+  font: inherit;
+  cursor: pointer;
+  background: none;
+  border: 0;
+  text-decoration: none;
+}
+
+.vx-link {
+  color: var(--vx-accent-text);
+  font-weight: 500;
+}
+
+.vx-link:hover:not(:disabled) {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.vx-link:disabled {
+  color: var(--vx-text-3);
+  cursor: default;
+}
+
+.vx-link-quiet {
+  color: var(--vx-text-3);
+  font-size: var(--vx-text-sm);
+}
+
+.vx-link-quiet:hover {
+  color: var(--vx-text-1);
+}
+
+.vx-spinner {
+  width: 15px;
+  height: 15px;
+  border: 2px solid currentColor;
+  border-right-color: transparent;
+  border-radius: 50%;
+  animation: vx-spin 700ms linear infinite;
+}
+@keyframes vx-spin {
+  to { transform: rotate(360deg); }
+}
+
+/* ---------- Fields ---------- */
+
+.vx-field {
+  display: grid;
+  gap: 7px;
+}
+
+.vx-field-label-row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.vx-field label,
+.vx-chip-group legend {
+  font-size: var(--vx-text-sm);
+  font-weight: 500;
+  color: var(--vx-text-2);
+}
+
+.vx-optional {
+  margin-left: 6px;
+  font-weight: 400;
+  color: var(--vx-text-3);
+}
+
+.vx-input {
+  width: 100%;
+  min-height: 46px;
+  padding: 0 14px;
+  font: 400 var(--vx-text-base)/1.4 var(--vx-font-ui);
+  color: var(--vx-text-1);
+  background: var(--vx-surface-1);
+  border: 1px solid var(--vx-border-2);
+  border-radius: var(--vx-r-md);
+  box-shadow: none;
+  transition: border-color var(--vx-t-fast) var(--vx-ease), background var(--vx-t-fast) var(--vx-ease), box-shadow var(--vx-t-fast) var(--vx-ease);
+}
+
+.vx-input::placeholder {
+  color: var(--vx-text-4);
+}
+
+.vx-input:hover {
+  border-color: var(--vx-border-3);
+}
+
+.vx-input:focus,
+.vx-input:focus-visible {
+  outline: none;
+  background: var(--vx-surface-2);
+  border-color: var(--vx-accent-line);
+  box-shadow: 0 0 0 3px var(--vx-accent-soft);
+}
+
+.vx-input[readonly] {
+  color: var(--vx-text-2);
+  background: transparent;
+}
+
+.vx-field.has-error .vx-input {
+  border-color: var(--vx-danger-line);
+}
+
+.vx-field.has-error .vx-input:focus {
+  box-shadow: 0 0 0 3px var(--vx-danger-soft);
+}
+
+.vx-input-lg {
+  min-height: 56px;
+  font-size: var(--vx-text-lg);
+}
+
+.vx-input-code {
+  font-size: 22px;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.45em;
+  text-align: center;
+}
+
+.vx-input-wrap {
+  position: relative;
+}
+
+.vx-input-wrap .vx-input {
+  padding-right: 48px;
+}
+
+.vx-input-action {
+  position: absolute;
+  top: 50%;
+  right: 6px;
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  color: var(--vx-text-3);
+  cursor: pointer;
+  background: none;
+  border: 0;
+  border-radius: var(--vx-r-sm);
+  transform: translateY(-50%);
+}
+
+.vx-input-action:hover {
+  color: var(--vx-text-1);
+  background: var(--vx-surface-3);
+}
+
+.vx-field-hint,
+.vx-field-error {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin: 0;
+  font-size: var(--vx-text-sm);
+  line-height: 1.45;
+}
+
+.vx-field-hint {
+  color: var(--vx-text-3);
+}
+
+.vx-field-error {
+  color: var(--vx-danger);
+}
+
+.vx-field-error svg {
+  flex: 0 0 auto;
+}
+
+/* Password strength */
+.vx-strength {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 2px;
+}
+
+.vx-strength-track {
+  display: grid;
+  flex: 1 1 auto;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 4px;
+}
+
+.vx-strength-track span {
+  height: 4px;
+  background: var(--vx-surface-4);
+  border-radius: 2px;
+  transition: background var(--vx-t) var(--vx-ease);
+}
+
+.vx-strength[data-strength='0'] .on,
+.vx-strength[data-strength='1'] .on { background: var(--vx-danger); }
+.vx-strength[data-strength='2'] .on { background: #e9c46a; }
+.vx-strength[data-strength='3'] .on,
+.vx-strength[data-strength='4'] .on { background: var(--vx-success); }
+
+.vx-strength-label {
+  min-width: 82px;
+  font-size: var(--vx-text-xs);
+  color: var(--vx-text-3);
+  text-align: right;
+}
+
+/* ---------- Chips ---------- */
+
+.vx-chip-group {
+  display: grid;
+  gap: 10px;
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.vx-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.vx-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 34px;
+  padding: 0 14px;
+  font: 500 var(--vx-text-md)/1 var(--vx-font-ui);
+  color: var(--vx-text-2);
+  cursor: pointer;
+  background: var(--vx-surface-1);
+  border: 1px solid var(--vx-border-2);
+  border-radius: var(--vx-r-full);
+  transition: all var(--vx-t-fast) var(--vx-ease);
+}
+
+.vx-chip:hover {
+  color: var(--vx-text-1);
+  border-color: var(--vx-border-3);
+}
+
+.vx-chip[aria-pressed='true'] {
+  color: var(--vx-accent-text);
+  background: var(--vx-accent-soft);
+  border-color: var(--vx-accent-line);
+}
+
+.vx-chip-avoid[aria-pressed='true'] {
+  color: var(--vx-danger);
+  background: var(--vx-danger-soft);
+  border-color: var(--vx-danger-line);
+}
+
+/* ---------- Notices ---------- */
+
+.vx-notice {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin: 0;
+  padding: 11px 14px;
+  font-size: var(--vx-text-md);
+  line-height: 1.5;
+  color: var(--vx-text-2);
+  background: var(--vx-surface-1);
+  border: 1px solid var(--vx-border-2);
+  border-radius: var(--vx-r-md);
+}
+
+.vx-notice svg {
+  flex: 0 0 auto;
+  margin-top: 3px;
+}
+
+.vx-notice-error {
+  color: var(--vx-danger);
+  background: var(--vx-danger-soft);
+  border-color: var(--vx-danger-line);
+}
+
+.vx-notice-accent {
+  color: var(--vx-accent-text);
+  background: var(--vx-accent-soft);
+  border-color: var(--vx-accent-line);
+}
+
+/* ---------- Layout helpers ---------- */
+
+.vx-stack {
+  display: grid;
+  gap: 10px;
+}
+
+.vx-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.vx-row-end {
+  justify-content: flex-end;
+}
+
+.vx-divider {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 18px 0;
+  font-size: var(--vx-text-xs);
+  color: var(--vx-text-3);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+}
+
+.vx-divider::before,
+.vx-divider::after {
+  flex: 1;
+  height: 1px;
+  content: '';
+  background: var(--vx-border-2);
+}
+
+.vx-fineprint {
+  margin: 14px 0 0;
+  font-size: var(--vx-text-xs);
+  line-height: 1.5;
+  color: var(--vx-text-3);
+  text-align: center;
+}
+
+/* ---------- Boot screen ---------- */
+
+.vx-boot {
+  position: fixed;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  background: var(--vx-bg);
+}
+
+.vx-boot-mark {
+  color: var(--vx-blue);
+  opacity: 0;
+  animation: vx-boot-in 600ms var(--vx-ease) 250ms forwards, vx-breathe 1.8s ease-in-out 850ms infinite;
+}
+@keyframes vx-boot-in {
+  to { opacity: 0.9; }
+}
+@keyframes vx-breathe {
+  50% { opacity: 0.45; }
+}
+
+/* ---------- Menus (shared) ---------- */
+
+.vx-menu {
+  position: absolute;
+  z-index: var(--z-popover, 1000);
+  min-width: 200px;
+  padding: 6px;
+  background: var(--vx-surface-2);
+  border: 1px solid var(--vx-border-2);
+  border-radius: var(--vx-r-md);
+  box-shadow: var(--vx-shadow-3);
+  animation: vx-pop var(--vx-t) var(--vx-ease);
+}
+
+.vx-menu button,
+.vx-menu a {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  min-height: 36px;
+  padding: 0 10px;
+  font: 400 var(--vx-text-md)/1 var(--vx-font-ui);
+  color: var(--vx-text-1);
+  text-align: left;
+  text-decoration: none;
+  cursor: pointer;
+  background: none;
+  border: 0;
+  border-radius: var(--vx-r-sm);
+}
+
+.vx-menu button:hover,
+.vx-menu button:focus-visible,
+.vx-menu a:hover {
+  background: var(--vx-surface-4);
+  box-shadow: none;
+}
+
+.vx-menu svg {
+  color: var(--vx-text-3);
+}
+
+.vx-menu .vx-menu-danger,
+.vx-menu .vx-menu-danger svg {
+  color: var(--vx-danger);
+}
+
+.vx-menu hr {
+  height: 1px;
+  margin: 6px 4px;
+  background: var(--vx-border-2);
+  border: 0;
+}
+
+.vx-menu-label {
+  padding: 8px 10px 6px;
+  overflow: hidden;
+  font-size: var(--vx-text-xs);
+  color: var(--vx-text-3);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+@keyframes vx-pop {
+  from { opacity: 0; transform: translateY(4px) scale(0.98); }
+}
+
+/* ---------- Toasts ---------- */
+
+.toast-viewport {
+  top: 16px;
+  right: 50%;
+  bottom: auto;
+  width: min(440px, calc(100vw - 32px));
+  transform: translateX(50%);
+}
+
+.toast-viewport .toast,
+.toast {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 11px 12px 11px 16px;
+  font-size: var(--vx-text-md);
+  color: var(--vx-text-1);
+  background: var(--vx-surface-3);
+  border: 1px solid var(--vx-border-2);
+  border-radius: var(--vx-r-md);
+  box-shadow: var(--vx-shadow-3);
+  animation: vx-pop var(--vx-t) var(--vx-ease);
+}
+
+.toast span {
+  flex: 1;
+}
+
+.toast button {
+  min-height: 28px;
+  padding: 0 10px;
+  font: 500 var(--vx-text-sm)/1 var(--vx-font-ui);
+  color: var(--vx-text-2);
+  cursor: pointer;
+  background: transparent;
+  border: 0;
+  border-radius: var(--vx-r-sm);
+}
+
+.toast button:hover {
+  color: var(--vx-text-1);
+  background: var(--vx-surface-4);
+}
+
+.toast-error {
+  border-color: var(--vx-danger-line);
+}
+
+.skip-link:focus {
+  z-index: 2000;
+  color: var(--vx-accent-ink);
+  background: var(--vx-accent);
+}
+
+/* =========================================================
+   LEGACY COMPONENTS ON THE NEW THEME
+   The old stylesheet put white text on its crimson accent. On amber that
+   fails contrast, so accent fills always carry dark ink, and selection
+   states use quiet surfaces instead of loud fills.
+   ========================================================= */
+
+.primary-button,
+.guest-account-actions .primary-button {
+  color: var(--vx-accent-ink) !important;
+  background: var(--vx-accent) !important;
+  border-color: var(--vx-accent) !important;
+}
+
+.primary-button:hover:not(:disabled) {
+  background: var(--vx-accent-hover) !important;
+}
+
+.notification-badge,
+.send-button {
+  color: var(--vx-accent-ink);
+}
+
+.tabs [role='tab'],
+.subtabs [role='tab'],
+.subtabs button {
+  color: var(--vx-text-2);
+  background: transparent;
+  border-color: transparent;
+}
+
+.tabs [role='tab'][aria-selected='true'],
+.tabs [role='tab'].active,
+.subtabs button.active,
+.subtabs [role='tab'][aria-selected='true'],
+.segmented button[aria-pressed='true'] {
+  color: var(--vx-text-1) !important;
+  background: var(--vx-surface-3) !important;
+  border-color: var(--vx-border-2) !important;
+  box-shadow: inset 0 -2px 0 var(--vx-accent);
+}
+
+.palette-item.active {
+  color: var(--vx-text-1) !important;
+  background: var(--vx-surface-4) !important;
+}
+
+.chip.selected {
+  color: var(--vx-accent-text) !important;
+  background: var(--vx-accent-soft) !important;
+  border-color: var(--vx-accent-line) !important;
+}
+
+.password-strength span,
+.dots i {
+  color: inherit;
+}
+
+/* ---------- Dialogs ---------- */
+
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 1500;
+  display: grid;
+  place-items: center;
+  padding: 16px;
+  background: var(--vx-overlay);
+  animation: vx-fade-in var(--vx-t) var(--vx-ease);
+}
+
+.modal-backdrop .modal {
+  display: grid;
+  gap: 14px;
+  width: min(460px, 100%);
+  padding: 24px;
+  color: var(--vx-text-1);
+  background: var(--vx-surface-2);
+  border: 1px solid var(--vx-border-2);
+  border-radius: var(--vx-r-lg);
+  box-shadow: var(--vx-shadow-3);
+  animation: vx-pop var(--vx-t) var(--vx-ease);
+}
+
+.modal-backdrop .modal h2 {
+  margin: 0;
+  font-family: var(--vx-font-display);
+  font-size: 28px;
+  font-weight: 400;
+}
+
+.modal-backdrop .modal p {
+  margin: 0;
+  font-size: var(--vx-text-md);
+  line-height: 1.6;
+  color: var(--vx-text-2);
+}
+
+.modal-backdrop .modal label {
+  display: grid;
+  gap: 6px;
+  font-size: var(--vx-text-sm);
+  font-weight: 500;
+  color: var(--vx-text-2);
+}
+
+.modal-backdrop .modal input {
+  min-height: 42px;
+  padding: 0 12px;
+  font: 400 var(--vx-text-base)/1.4 var(--vx-font-ui);
+  color: var(--vx-text-1);
+  background: var(--vx-surface-1);
+  border: 1px solid var(--vx-border-2);
+  border-radius: var(--vx-r-sm);
+}
+
+.modal-backdrop .modal input:focus {
+  outline: none;
+  border-color: var(--vx-accent-line);
+  box-shadow: 0 0 0 3px var(--vx-accent-soft);
+}
+
+.modal-backdrop .modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  margin-top: 6px;
+}
+
+.modal-backdrop .modal-actions button {
+  min-height: 38px;
+  padding: 0 16px;
+  font: 500 var(--vx-text-md)/1 var(--vx-font-ui);
+  color: var(--vx-text-1);
+  cursor: pointer;
+  background: var(--vx-surface-3);
+  border: 1px solid var(--vx-border-2);
+  border-radius: var(--vx-r-sm);
+}
+
+.modal-backdrop .modal-actions .danger-button {
+  color: #1d0b09;
+  background: var(--vx-danger);
+  border-color: var(--vx-danger);
+}
+
+.modal-backdrop .modal-actions button:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+@keyframes vx-fade-in {
+  from { opacity: 0; }
+}
+
+/* The next step under an empty list's message (2026-10-14). */
+.empty .empty-actions {
+  display: flex;
+  justify-content: center;
+  margin-top: 14px;
+}
+
+.empty .empty-actions .vx-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}

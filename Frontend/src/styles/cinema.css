@@ -1,0 +1,528 @@
+/* =========================================================
+   CINEMA: typography and atmosphere (loaded last)
+   One sans-serif family everywhere, like ChatGPT and Claude; display type
+   is set by size and weight, not a second font.
+   ========================================================= */
+
+.vx-display {
+  font-family: var(--vx-font-ui);
+  font-weight: 600;
+  letter-spacing: -0.022em;
+  line-height: 1.12;
+}
+
+.vx-display em {
+  font-style: normal;
+  /* white into screen blue, like light hitting the screen */
+  background: linear-gradient(90deg, #ffffff 0%, #c9dbff 45%, #7aa7ff 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.vx-brand-name,
+.vx-sidebar-brand .vx-brand-name {
+  font-family: var(--vx-font-ui);
+  font-size: 18px;
+  font-weight: 650;
+  letter-spacing: -0.015em;
+}
+
+.vx-brand-mark {
+  color: var(--vx-blue);
+  background: radial-gradient(circle at 50% 30%, rgba(153, 189, 255, 0.24), rgba(153, 189, 255, 0.04) 72%);
+  border-color: var(--vx-accent-line);
+}
+
+.vx-welcome-copy h1 {
+  font-size: clamp(40px, 5vw, 64px);
+  line-height: 1.04;
+}
+
+.vx-auth-title {
+  font-size: clamp(26px, 3vw, 32px);
+}
+
+.vx-welcome-card-title {
+  font-size: 26px;
+}
+
+.vx-home-greeting h1 {
+  font-size: clamp(26px, 3vw, 34px);
+  font-weight: 600;
+}
+
+.vx-settings-nav h1 {
+  font-size: 26px;
+}
+
+.vx-settings-content h2,
+.modal-backdrop .modal h2 {
+  font-family: var(--vx-font-ui);
+  font-size: 20px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.vx-app .vx-page-head h1 {
+  font-size: clamp(26px, 3vw, 32px);
+  font-weight: 650;
+}
+
+.vx-app .movie-page h1,
+.vx-app .person-page h1 {
+  font-family: var(--vx-font-ui);
+  font-size: clamp(30px, 3.6vw, 44px);
+  font-weight: 650;
+  letter-spacing: -0.025em;
+  line-height: 1.08;
+}
+
+.vx-app .movie-page h2,
+.vx-app .person-page h2 {
+  font-family: var(--vx-font-ui);
+  font-size: 20px;
+  font-weight: 600;
+}
+
+@media (max-width: 900px) {
+  .vx-welcome-copy h1 {
+    font-size: clamp(34px, 9vw, 46px);
+  }
+}
+
+@media (max-width: 760px) {
+  .vx-home-greeting h1 {
+    font-size: 26px;
+  }
+}
+
+/* ---------- Atmosphere ---------- */
+
+/* Welcome, auth and onboarding: a dark house with a cool projector beam
+   falling from above the screen, and a soft vignette at the edges. */
+.vx-welcome,
+.vx-auth,
+.vx-onboarding {
+  background:
+    conic-gradient(from 180deg at 50% -6%, transparent 158deg, rgba(150, 185, 255, 0.07) 172deg, rgba(190, 215, 255, 0.11) 180deg, rgba(150, 185, 255, 0.07) 188deg, transparent 202deg),
+    radial-gradient(ellipse 60% 45% at 50% -10%, rgba(122, 167, 255, 0.22), transparent 70%),
+    radial-gradient(ellipse 140% 90% at 50% 50%, transparent 55%, rgba(0, 0, 0, 0.55) 100%),
+    linear-gradient(180deg, #08101f 0%, #070b14 55%, #04070d 100%);
+  background-attachment: fixed;
+}
+
+.vx-welcome::before,
+.vx-auth::before,
+.vx-onboarding::before {
+  display: none;
+}
+
+.vx-welcome-panel {
+  background: rgba(7, 11, 20, 0.5);
+  border-left-color: rgba(170, 195, 240, 0.1);
+  -webkit-backdrop-filter: blur(18px);
+  backdrop-filter: blur(18px);
+}
+
+@media (max-width: 900px) {
+  .vx-welcome-panel {
+    background: none;
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+  }
+}
+
+/* Inside the app: only a faint beam at the top, so long answers sit on an
+   even, calm background. */
+.vx-main {
+  background:
+    radial-gradient(ellipse 60% 34% at 50% -12%, rgba(122, 167, 255, 0.1), transparent 72%),
+    var(--vx-bg);
+}
+
+.vx-home-mark {
+  color: var(--vx-blue);
+  filter: drop-shadow(0 0 16px rgba(153, 189, 255, 0.45));
+}
+
+/* Avatar and new-chat button pick up the dusk gradient */
+.vx-app .vx-avatar {
+  color: var(--vx-accent-ink);
+  background: linear-gradient(140deg, #dbe7ff, #7aa7ff);
+}
+
+.vx-new-chat-icon {
+  color: var(--vx-accent-ink);
+  background: var(--vx-accent);
+  box-shadow: 0 0 0 4px var(--vx-accent-soft);
+}
+
+.vx-btn-primary {
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.3) inset, 0 6px 20px rgba(153, 189, 255, 0.18);
+}
+
+.vx-app .composer-box > .send-button {
+  border-radius: 50%;
+}
+
+.vx-topbar-title {
+  display: flex;
+  align-items: center;
+  margin-left: -10px;
+}
+
+@media (max-width: 760px) {
+  .vx-topbar-title {
+    margin-left: 0;
+  }
+
+}
+
+/* Info toasts ("Link copied") are calm; errors keep their red edge */
+.toast:not(.toast-error) {
+  border-color: var(--vx-accent-line);
+}
+
+/* ---------- Rate-limit countdown in a failed turn ---------- */
+
+.message-failure-actions {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.message-failure-countdown {
+  font-size: var(--vx-text-sm);
+  font-variant-numeric: tabular-nums;
+  color: var(--vx-text-2);
+}
+
+.vx-app .retry-button-quiet {
+  color: var(--vx-text-2);
+  background: transparent;
+}
+
+body .toast-viewport {
+  position: fixed;
+  top: 14px;
+  right: auto;
+  bottom: auto;
+  left: 50%;
+  z-index: 1600;
+  display: grid;
+  gap: 8px;
+  width: min(440px, calc(100vw - 24px));
+  transform: translateX(-50%);
+}
+
+/* The title menu drops below the top bar; the bar must not clip or scroll
+   (focusing a menu item used to scroll the bar's contents out of view). */
+.vx-app .vx-topbar,
+.vx-app .vx-topbar-title {
+  overflow: visible;
+}
+
+/* =========================================================
+   MY TASTE
+   ========================================================= */
+
+.vx-app .vx-taste {
+  max-width: 980px;
+}
+
+.vx-taste-stats {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px;
+  margin: 0 0 28px;
+}
+
+.vx-taste-stat {
+  display: grid;
+  gap: 4px;
+  padding: 16px 18px;
+  background: var(--vx-surface-1);
+  border: 1px solid var(--vx-border);
+  border-radius: var(--vx-r-md);
+}
+
+.vx-taste-stat b {
+  font-size: 24px;
+  font-weight: 650;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.02em;
+  color: var(--vx-text-1);
+}
+
+.vx-taste-stat span {
+  font-size: var(--vx-text-sm);
+  color: var(--vx-text-3);
+}
+
+.vx-taste-section {
+  padding: 22px 0;
+  border-top: 1px solid var(--vx-border);
+}
+
+.vx-taste-section-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.vx-taste-section h2,
+.vx-taste-empty h2 {
+  margin: 0;
+  font-size: var(--vx-text-lg);
+  font-weight: 600;
+  color: var(--vx-text-1);
+}
+
+.vx-taste-note {
+  margin: -6px 0 12px;
+  font-size: var(--vx-text-sm);
+  color: var(--vx-text-3);
+}
+
+.vx-taste-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.vx-taste-none {
+  margin: 0;
+  font-size: var(--vx-text-md);
+  color: var(--vx-text-3);
+}
+
+.vx-taste-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 34px;
+  padding: 0 6px 0 14px;
+  font-size: var(--vx-text-md);
+  font-weight: 500;
+  color: var(--vx-text-1);
+  background: var(--vx-surface-2);
+  border: 1px solid var(--vx-border-2);
+  border-radius: var(--vx-r-full);
+}
+
+.vx-taste-chip small {
+  font-size: var(--vx-text-xs);
+  font-weight: 400;
+  color: var(--vx-text-3);
+}
+
+.vx-taste-chip button {
+  display: inline-grid;
+  place-items: center;
+  width: 24px;
+  height: 24px;
+  padding: 0;
+  color: var(--vx-text-3);
+  cursor: pointer;
+  background: transparent;
+  border: 0;
+  border-radius: 50%;
+}
+
+.vx-taste-chip button:hover:not(:disabled) {
+  color: var(--vx-text-1);
+  background: var(--vx-surface-4);
+}
+
+.vx-taste-chip-love {
+  border-color: var(--vx-accent-line);
+  background: var(--vx-accent-soft);
+}
+
+.vx-taste-chip-skip {
+  border-color: var(--vx-danger-line);
+  background: var(--vx-danger-soft);
+}
+
+.vx-taste-chip-noticed {
+  border-style: dashed;
+}
+
+.vx-taste-add {
+  display: grid;
+  gap: 12px;
+  margin-top: 14px;
+}
+
+.vx-taste-add form {
+  display: flex;
+  gap: 8px;
+  max-width: 620px;
+}
+
+.vx-taste-add .vx-input {
+  min-height: 40px;
+}
+
+.vx-taste-suggest {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.vx-taste-suggest .vx-chip {
+  min-height: 30px;
+  padding: 0 12px;
+  font-size: var(--vx-text-sm);
+}
+
+.vx-taste-posters {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(118px, 1fr));
+  gap: 14px;
+}
+
+.vx-taste-poster {
+  display: grid;
+  gap: 6px;
+  padding: 0;
+  font: inherit;
+  color: var(--vx-text-1);
+  text-align: left;
+  cursor: pointer;
+  background: none;
+  border: 0;
+}
+
+.vx-taste-poster img,
+.vx-taste-poster-blank {
+  display: grid;
+  place-items: center;
+  width: 100%;
+  aspect-ratio: 2 / 3;
+  object-fit: cover;
+  color: var(--vx-text-4);
+  background: var(--vx-surface-2);
+  border: 1px solid var(--vx-border);
+  border-radius: var(--vx-r-sm);
+  transition: transform var(--vx-t) var(--vx-ease);
+}
+
+.vx-taste-poster:hover img,
+.vx-taste-poster:hover .vx-taste-poster-blank {
+  transform: translateY(-2px);
+}
+
+.vx-taste-poster-title {
+  overflow: hidden;
+  font-size: var(--vx-text-sm);
+  font-weight: 500;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.vx-taste-poster-rating {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: var(--vx-text-xs);
+  color: var(--vx-text-3);
+}
+
+.vx-taste-poster-rating svg {
+  color: #e9c46a;
+}
+
+.vx-taste-empty {
+  display: grid;
+  justify-items: start;
+  gap: 10px;
+  margin: 0 0 8px;
+  padding: 22px;
+  background: var(--vx-surface-1);
+  border: 1px solid var(--vx-border-2);
+  border-radius: var(--vx-r-lg);
+}
+
+.vx-taste-empty p {
+  margin: 0;
+  max-width: 560px;
+  line-height: 1.6;
+  color: var(--vx-text-2);
+}
+
+.vx-taste-footer {
+  margin: 18px 0 0;
+  padding-top: 18px;
+  font-size: var(--vx-text-sm);
+  color: var(--vx-text-3);
+  border-top: 1px solid var(--vx-border);
+}
+
+@media (max-width: 760px) {
+  .vx-taste-stats {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .vx-taste-add form {
+    flex-direction: column;
+  }
+}
+
+/* Settings → Help: AI service status */
+.vx-ai-status {
+  display: grid;
+  gap: 6px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.vx-ai-status li {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 4px 10px;
+  padding: 10px 12px;
+  font-size: var(--vx-text-sm);
+  background: var(--vx-surface-2);
+  border: 1px solid var(--vx-border);
+  border-radius: var(--vx-r-sm);
+}
+
+.vx-ai-status small {
+  grid-column: 2 / -1;
+  color: var(--vx-text-3);
+}
+
+.vx-ai-status-dot {
+  width: 8px;
+  height: 8px;
+  background: var(--vx-success);
+  border-radius: 50%;
+}
+
+.vx-ai-status .is-failing .vx-ai-status-dot {
+  background: var(--vx-danger);
+}
+
+.vx-ai-status-model {
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  color: var(--vx-text-1);
+}
+
+.vx-ai-status-state {
+  color: var(--vx-text-2);
+  text-transform: capitalize;
+}
+
+.vx-ai-status .is-failing .vx-ai-status-state {
+  color: var(--vx-danger);
+}
+
+.vx-app .vx-page-head h1 {
+  color: var(--vx-text-1);
+}

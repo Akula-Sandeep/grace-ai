@@ -1,0 +1,44 @@
+[tool.black]
+line-length = 110
+target-version = ["py312"]
+
+[tool.ruff]
+line-length = 110
+target-version = "py312"
+
+[tool.ruff.lint]
+# Reliability, security, async-safety, and modernization rules.
+select = [
+    "E",
+    "F",
+    "I",
+    "B",
+    "S",
+    "ASYNC",
+    "BLE",
+    "TRY",
+    "PERF",
+    "UP",
+    "DTZ",
+    "T20",
+    "RUF",
+]
+ignore = [
+    "E501",  # line length is enforced by black, not worth double-reporting
+    "B008",  # FastAPI's idiomatic `Depends(...)`/`Query(...)` in defaults, not a real bug
+    "BLE001",  # Legacy broad catches remain; avoid hiding new fallback behavior during migration.
+    "TRY003",  # Public/API errors intentionally carry concise user-safe messages.
+    "TRY300",  # Moving returns into else blocks adds noise without changing failure handling.
+    "TRY301",  # Small validation raises remain local to keep their guards readable.
+    "RUF001",  # Curly apostrophes are intentional typography in user-facing/movie-title text.
+]
+
+[tool.ruff.lint.per-file-ignores]
+# Isolated tests configure the environment before importing the app.
+"tests/**/*.py" = ["S101", "S105", "S106", "S110", "T201", "E402", "RUF012"]
+"app/evals/run_quality_eval.py" = ["T201"]
+"scripts/**/*.py" = ["T201"]
+
+[tool.pytest.ini_options]
+pythonpath = "."
+asyncio_mode = "auto"

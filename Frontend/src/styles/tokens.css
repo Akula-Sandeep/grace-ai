@@ -1,0 +1,130 @@
+/* =========================================================
+   Grace DESIGN TOKENS — "Midnight"
+   A dark cinema: navy-black house, a cool projector beam, crisp white type.
+   Primary actions are near-white (like ChatGPT/Claude); one screen-blue
+   accent marks focus, links and the active item. Colour comes from posters.
+   ========================================================= */
+
+:root {
+  color-scheme: dark;
+
+  /* Surfaces: navy night, layered */
+  --vx-bg: #070b14;
+  --vx-bg-sidebar: #060912;
+  --vx-surface-1: #0c1321;
+  --vx-surface-2: #111a2b;
+  --vx-surface-3: #172235;
+  --vx-surface-4: #1f2c43;
+  --vx-overlay: rgba(3, 6, 12, 0.74);
+
+  /* Type */
+  --vx-text-1: #e9eef7;
+  --vx-text-2: #b4bfd1;
+  --vx-text-3: #8b98b0; /* >= 4.8:1 on every surface */
+  --vx-text-4: #6a7690; /* placeholders and decorative lines only, never text */
+
+  /* Lines */
+  --vx-border: rgba(170, 195, 240, 0.08);
+  --vx-border-2: rgba(170, 195, 240, 0.14);
+  --vx-border-3: rgba(170, 195, 240, 0.24);
+
+  /* Primary action: near-white with navy text. Accent: screen blue. */
+  --vx-accent: #eef3fb;
+  --vx-accent-hover: #ffffff;
+  --vx-accent-press: #d5deec;
+  --vx-accent-ink: #0a1222;
+  --vx-accent-text: #8fb6ff;
+  --vx-accent-soft: rgba(122, 167, 255, 0.12);
+  --vx-accent-soft-2: rgba(122, 167, 255, 0.2);
+  --vx-accent-line: rgba(122, 167, 255, 0.45);
+  --vx-blue: #7aa7ff;
+  --vx-horizon: #7aa7ff;
+  --vx-sky: radial-gradient(ellipse 70% 55% at 50% -8%, rgba(122, 167, 255, 0.2), transparent 70%), linear-gradient(180deg, #08101f 0%, #070b14 60%, #05080f 100%);
+
+  /* Status */
+  --vx-danger: #ff8f8f;
+  --vx-danger-soft: rgba(255, 143, 143, 0.1);
+  --vx-danger-line: rgba(255, 143, 143, 0.34);
+  --vx-success: #6fd9a8;
+  --vx-success-soft: rgba(111, 217, 168, 0.1);
+
+  /* Type */
+  --vx-font-ui: 'Inter Variable', 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --vx-font-display: var(--vx-font-ui);
+  --vx-text-xs: 12px;
+  --vx-text-sm: 13px;
+  --vx-text-md: 14px;
+  --vx-text-base: 15px;
+  --vx-text-read: 16px;
+  --vx-text-lg: 18px;
+  --vx-text-xl: 22px;
+  --vx-display-sm: 26px;
+  --vx-display-md: 32px;
+  --vx-display-lg: 48px;
+
+  /* Shape and depth */
+  --vx-r-xs: 6px;
+  --vx-r-sm: 8px;
+  --vx-r-md: 12px;
+  --vx-r-lg: 16px;
+  --vx-r-xl: 24px;
+  --vx-r-full: 999px;
+  --vx-shadow-1: 0 1px 2px rgba(0, 0, 0, 0.35);
+  --vx-shadow-2: 0 10px 30px rgba(1, 4, 10, 0.55), 0 1px 0 rgba(255, 255, 255, 0.03) inset;
+  --vx-shadow-3: 0 24px 70px rgba(1, 4, 10, 0.7);
+  --vx-focus: 0 0 0 2px var(--vx-bg), 0 0 0 4px rgba(122, 167, 255, 0.7);
+
+  /* Layout */
+  --vx-sidebar-w: 268px;
+  --vx-rail-w: 60px;
+  --vx-topbar-h: 56px;
+  --vx-column: 760px;
+
+  /* Motion */
+  --vx-ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+  --vx-t-fast: 120ms;
+  --vx-t: 180ms;
+  --vx-t-slow: 280ms;
+
+  /* Map the legacy semantic variables onto the new system so older
+     surfaces (movie pages, settings, panels) inherit the same theme. */
+  --bg: var(--vx-bg);
+  --bg-deep: #05080f;
+  --sidebar: var(--vx-bg-sidebar);
+  --surface: var(--vx-surface-1);
+  --surface-raised: var(--vx-surface-2);
+  --surface-soft: var(--vx-surface-3);
+  --surface-chat: var(--vx-surface-1);
+  --surface-user: var(--vx-surface-3);
+  --accent: var(--vx-accent);
+  --accent-bright: var(--vx-accent-hover);
+  --accent-soft: var(--vx-accent-text);
+  --accent-deep: var(--vx-accent-press);
+  --accent-dark: #1b2f57;
+  --text: var(--vx-text-1);
+  --text-primary: var(--vx-text-1);
+  --text-soft: var(--vx-text-2);
+  --text-secondary: var(--vx-text-2);
+  --text-tertiary: var(--vx-text-3);
+  --muted: var(--vx-text-2);
+  --muted-dark: var(--vx-text-3);
+  --danger-text: var(--vx-danger);
+  --border: var(--vx-border);
+  --border-accent: var(--vx-accent-line);
+  --sidebar-width: var(--vx-sidebar-w);
+  --shadow-popover: var(--vx-shadow-3);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --vx-t-fast: 0ms;
+    --vx-t: 0ms;
+    --vx-t-slow: 0ms;
+  }
+}
+
+:root[data-motion='reduced'] {
+  --vx-t-fast: 0ms;
+  --vx-t: 0ms;
+  --vx-t-slow: 0ms;
+}

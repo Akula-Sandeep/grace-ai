@@ -1,0 +1,113 @@
+{"m": "add it", "intent": "add_to_watchlist", "f": {"movie_title": null}}
+{"m": "add it to my watchlist", "intent": "add_to_watchlist", "f": {"movie_title": null}}
+{"m": "add it to watchlist", "intent": "add_to_watchlist", "f": {"movie_title": null}}
+{"m": "pls add dune to watchlist", "intent": "add_to_watchlist", "f": {"movie_title": "dune"}}
+{"m": "save interstellar for later", "intent": "add_to_watchlist", "f": {"movie_title": "interstellar"}}
+{"m": "can you add the second one", "intent": "add_to_watchlist", "f": {"movie_title": null}}
+{"m": "add both", "intent": "add_to_watchlist", "f": {"movie_title": null}}
+{"m": "add all of them", "intent": "add_to_watchlist", "f": {"movie_title": null}}
+{"m": "put Arrival on my list", "intent": "add_to_watchlist", "f": {"movie_title": "Arrival"}}
+{"m": "bookmark this", "intent": "add_to_watchlist", "f": {"movie_title": null}}
+{"m": "add The Dark Knight to watchlist", "intent": "add_to_watchlist", "f": {"movie_title": "The Dark Knight"}}
+{"m": "add dark knight to my watchlist", "intent": "add_to_watchlist", "f": {"movie_title": "dark knight"}}
+{"m": "Add Oppenheimer and remind me on Saturday", "intent": "add_to_watchlist", "f": {"movie_title": "Oppenheimer"}}
+{"m": "add it and remind me tomorrow at 8pm", "intent": "add_to_watchlist", "f": {"reminder_when": "tomorrow at 8pm"}}
+{"m": "ok add the first one", "intent": "add_to_watchlist", "f": {"movie_title": null}}
+{"m": "save the last one", "intent": "add_to_watchlist", "f": {"movie_title": null}}
+{"m": "add Dune: Part Two to my watch list please", "intent": "add_to_watchlist", "f": {"movie_title": "Dune: Part Two"}}
+{"m": "add number 3", "intent": "add_to_watchlist", "f": {"movie_title": null}}
+{"m": "I'll watch this later. Add it.", "intent": "add_to_watchlist", "f": {"movie_title": null}}
+{"m": "remove it from my watchlist", "intent": "remove_from_watchlist", "f": {"movie_title": null}}
+{"m": "remove Arrival from my watchlist", "intent": "remove_from_watchlist", "f": {"movie_title": "Arrival"}}
+{"m": "delete that from my list", "intent": "remove_from_watchlist", "f": {"movie_title": null}}
+{"m": "take Joker off my watchlist", "intent": "remove_from_watchlist", "f": {"movie_title": "Joker"}}
+{"m": "remove it", "intent": "remove_from_watchlist", "f": {"movie_title": null}}
+{"m": "I've seen Se7en", "intent": "mark_as_watched", "f": {"movie_title": "Se7en"}}
+{"m": "I have already watched it", "intent": "mark_as_watched", "f": {"movie_title": null}}
+{"m": "already seen it", "intent": "mark_as_watched", "f": {"movie_title": null}}
+{"m": "mark Interstellar as watched", "intent": "mark_as_watched", "f": {"movie_title": "Interstellar"}}
+{"m": "i watched prisoners last night", "intent": "mark_as_watched", "f": {"movie_title": "prisoners"}}
+{"m": "unmark it as watched", "intent": "unmark_watched", "f": {}}
+{"m": "I haven't actually seen Drive", "intent": "unmark_watched", "f": {}}
+{"m": "rate it 9", "intent": "rate_movie", "f": {"rating": 9.0}}
+{"m": "rate Dune 8/10", "intent": "rate_movie", "f": {"rating": 8.0, "movie_title": "Dune"}}
+{"m": "give it a 7", "intent": "rate_movie", "f": {"rating": 7.0}}
+{"m": "Arrival was a solid 8/10", "intent": "rate_movie", "f": {"rating": 8.0, "movie_title": "Arrival"}}
+{"m": "remind me to watch Interstellar tomorrow at 8pm", "intent": "set_reminder", "f": {"movie_title": "Interstellar"}}
+{"m": "remind me about it on friday", "intent": "set_reminder", "f": {"movie_title": null}}
+{"m": "set a reminder for tonight", "intent": "set_reminder", "f": {}}
+{"m": "what's on my watchlist?", "intent": "view_watchlist", "f": {}}
+{"m": "show my watchlist", "intent": "view_watchlist", "f": {}}
+{"m": "my watchlist", "intent": "view_watchlist", "f": {}}
+{"m": "what did I save?", "intent": "view_watchlist", "f": {}}
+{"m": "who directed Prisoners?", "intent": "cast_crew", "f": {"movie_title": "Prisoners", "requested_fact": "director"}}
+{"m": "Who directed it?", "intent": "cast_crew", "f": {"movie_title": null, "requested_fact": "director"}}
+{"m": "who is the director of oppenheimer", "intent": "cast_crew", "f": {"movie_title": "oppenheimer", "requested_fact": "director"}}
+{"m": "who's in Dune?", "intent": "cast_crew", "f": {"movie_title": "Dune"}}
+{"m": "cast of Interstellar", "intent": "cast_crew", "f": {"movie_title": "Interstellar"}}
+{"m": "who starred in The Departed", "intent": "cast_crew", "f": {"movie_title": "The Departed"}}
+{"m": "who composed the score for Interstellar?", "intent": "cast_crew", "f": {"movie_title": "Interstellar", "requested_fact": "composer"}}
+{"m": "music director of RRR", "intent": "cast_crew", "f": {"movie_title": "RRR", "requested_fact": "composer"}}
+{"m": "who did the music in Dune", "intent": "cast_crew", "f": {"movie_title": "Dune", "requested_fact": "composer"}}
+{"m": "How long is Interstellar?", "intent": "runtime", "f": {"movie_title": "Interstellar"}}
+{"m": "how long is it", "intent": "runtime", "f": {"movie_title": null}}
+{"m": "runtime of baahubali", "intent": "runtime", "f": {"movie_title": "baahubali"}}
+{"m": "Oppenheimer runtime?", "intent": "runtime", "f": {"movie_title": "Oppenheimer"}}
+{"m": "when did Dune come out?", "intent": "metadata", "f": {"movie_title": "Dune", "requested_fact": "release"}}
+{"m": "Tell me about Dune", "intent": "metadata", "f": {"movie_title": "Dune"}}
+{"m": "tell me more about Arrival", "intent": "metadata", "f": {"movie_title": "Arrival"}}
+{"m": "what's Ex Machina about?", "intent": "metadata", "f": {"movie_title": "Ex Machina"}}
+{"m": "What about the sequel?", "intent": "metadata", "f": {"movie_title": null}}
+{"m": "Where was Dune: Part Two actually filmed?", "intent": "movie_locations", "f": {"movie_title": "Dune: Part Two"}}
+{"m": "where was RRR shot", "intent": "movie_locations", "f": {"movie_title": "RRR"}}
+{"m": "Back to Interstellar, who composed the score?", "intent": "cast_crew", "f": {"movie_title": "Interstellar", "requested_fact": "composer"}}
+{"m": "What else has he directed?", "intent": "cast_crew", "f": {}}
+{"m": "suggest some movies like dark knight but based on real stories, under 2hours", "intent": "recommendation", "f": {"max_runtime_minutes": 120, "based_on_true_story": true, "reference_titles": ["dark knight"]}}
+{"m": "recommend a feel good movie", "intent": "recommendation", "f": {"mood_keywords": ["feel-good"]}}
+{"m": "give me a korean thriller", "intent": "recommendation", "f": {"original_language": "ko", "genres": ["Thriller"]}}
+{"m": "suggest telugu action movies", "intent": "recommendation", "f": {"original_language": "te", "genres": ["Action"]}}
+{"m": "movies like Interstellar", "intent": "recommendation", "f": {"reference_titles": ["Interstellar"]}}
+{"m": "I only have 90 minutes, what should I watch", "intent": "recommendation", "f": {"max_runtime_minutes": 90}}
+{"m": "best sci-fi from the 90s", "intent": "recommendation", "f": {"genres": ["Science Fiction"], "min_year": 1990, "max_year": 1999}}
+{"m": "hidden gems like Primer", "intent": "recommendation", "f": {"prefer_less_popular": true, "reference_titles": ["Primer"]}}
+{"m": "Recommend a thriller under 2 hours, no horror, after 2005", "intent": "recommendation", "f": {"max_runtime_minutes": 120, "exclude_genres": ["Horror"], "min_year": 2006}}
+{"m": "something to watch tonight", "intent": "recommendation", "f": {}}
+{"m": "what should I watch?", "intent": "recommendation", "f": {}}
+{"m": "any good comedies?", "intent": "recommendation", "f": {"genres": ["Comedy"]}}
+{"m": "a sci-fi movie", "intent": "recommendation", "f": {"genres": ["Science Fiction"]}}
+{"m": "Give me a sci-fi movie", "intent": "recommendation", "f": {"genres": ["Science Fiction"]}}
+{"m": "recommend something around two hours, not depressing", "intent": "recommendation", "f": {"max_runtime_minutes": 120, "runtime_is_approximate": true}}
+{"m": "find me a movie based on a true story", "intent": "recommendation", "f": {"based_on_true_story": true}}
+{"m": "Bro, I'm exhausted. Give me something like Interstellar tonight. Under two hours, dark atmosphere, not too depressing, and please don't give me the obvious blockbuster.", "intent": "recommendation", "f": {"max_runtime_minutes": 120, "prefer_less_popular": true, "reference_titles": ["Interstellar"]}}
+{"m": "suggest a hindi movie for family night", "intent": "recommendation", "f": {"original_language": "hi"}}
+{"m": "recommend a mind-bending movie", "intent": "recommendation", "f": {"mood_keywords": ["mind-bending"]}}
+{"m": "something like Se7en but less violent", "intent": "recommendation", "f": {"reference_titles": ["Se7en"]}}
+{"m": "shorter", "h": true, "intent": "recommendation", "f": {}}
+{"m": "Something less emotional", "h": true, "intent": "recommendation", "f": {}}
+{"m": "darker", "h": true, "intent": "recommendation", "f": {}}
+{"m": "another one", "h": true, "intent": "recommendation", "f": {}}
+{"m": "something newer", "h": true, "intent": "recommendation", "f": {}}
+{"m": "lighter please", "h": true, "intent": "recommendation", "f": {}}
+{"m": "hmm, something funnier", "h": true, "intent": "recommendation", "f": {}}
+{"m": "I love dark atmosphere, but slow pacing kills movies for me.", "intent": "preference_update", "f": {}}
+{"m": "I hate horror movies", "intent": "preference_update", "f": {}}
+{"m": "I don't like slow movies", "intent": "preference_update", "f": {}}
+{"m": "Actually, I've started enjoying slow movies", "intent": "preference_update", "f": {}}
+{"m": "I'm really into sci-fi", "intent": "preference_update", "f": {}}
+{"m": "Loved it. The atmosphere was incredible, but it became too slow in the second half.", "intent": "movie_feedback", "f": {}}
+{"m": "hated it", "intent": "movie_feedback", "f": {}}
+{"m": "it was boring honestly", "intent": "movie_feedback", "f": {}}
+{"m": "loved the soundtrack", "intent": "movie_feedback", "f": {}}
+{"m": "what is 12 times 7", "intent": "coding_math", "f": {}}
+{"m": "Also, what is 12 times 7?", "intent": "coding_math", "f": {}}
+{"m": "15% of 200?", "intent": null, "f": {}}
+{"m": "hi", "intent": null, "f": {}}
+{"m": "how are you", "intent": null, "f": {}}
+{"m": "tell me a joke", "intent": null, "f": {}}
+{"m": "what is the capital of France", "intent": null, "f": {}}
+{"m": "fkkk you", "intent": null, "f": {}}
+{"m": "explain quantum computing simply", "intent": null, "f": {}}
+{"m": "I wanna watch it tomorrow.", "intent": null, "f": {}}
+{"m": "take it easy", "intent": null, "f": {}}
+{"m": "delete that thought", "intent": null, "f": {}}
+{"m": "save this explanation for later", "intent": "add_to_watchlist", "f": {}}

@@ -1,0 +1,51 @@
+groups:
+  - name: grace-slo
+    rules:
+      - alert: GraceAvailabilityBelowSLO
+        expr: |
+          1 - (
+            sum(rate(grace_http_requests_total{status=~"5.."}[5m]))
+            /
+            clamp_min(sum(rate(grace_http_requests_total[5m])), 1e-9)
+          ) < 0.995
+        for: 10m
+        labels:
+          severity: page
+        annotations:
+          summary: Grace availability is below the 99.5% SLO
+          description: More than 0.5% of requests have returned a server error for 10 minutes.
+
+      - alert: GraceTTFTP95AboveSLO
+        expr: |
+          histogram_quantile(
+            0.95,
+            sum by (le) (rate(grace_time_to_first_token_seconds_bucket[5m]))
+          ) > 3
+        for: 10m
+        labels:
+          severity: page
+        annotations:
+          summary: Grace time-to-first-token p95 exceeds 3 seconds
+          description: The 5-minute p95 first-token latency has remained above 3 seconds.
+
+      - alert: GraceFallbackRateAboveSLO
+        expr: |
+          sum(rate(grace_chat_fallback_turns_total[5m]))
+          /
+          clamp_min(sum(rate(grace_chat_turns_total[5m])), 1e-9)
+          > 0.03
+        for: 10m
+        labels:
+          severity: warning
+        annotations:
+          summary: Grace fallback rate exceeds 3%
+          description: Chat turns that fall back or fail exceed 3% of all chat turns for 10 minutes.
+
+      - alert: GraceProviderErrors
+        expr: sum(rate(grace_provider_errors_total[5m])) > 0
+        for: 2m
+        labels:
+          severity: warning
+        annotations:
+          summary: Grace is recording provider errors
+          description: One or more LLM or external provider errors have occurred.

@@ -1,0 +1,290 @@
+/* =========================================================
+   WELCOME · AUTH · ONBOARDING
+   A dark screening room: a soft projector beam from above, a faint
+   film grain, warm serif titles. Everything fits one screen.
+   ========================================================= */
+
+.vx-welcome,
+.vx-auth,
+.vx-onboarding {
+  position: relative;
+  min-height: 100dvh;
+  overflow-x: hidden;
+  color: var(--vx-text-1);
+  background:
+    radial-gradient(ellipse 60% 55% at 50% -12%, rgba(92, 145, 242, 0.13), transparent 70%),
+    radial-gradient(ellipse 120% 80% at 50% 120%, rgba(0, 0, 0, 0.6), transparent 60%),
+    var(--vx-bg);
+  isolation: isolate;
+}
+
+/* Film grain: an SVG noise tile at very low opacity */
+.vx-welcome::before,
+.vx-auth::before,
+.vx-onboarding::before {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  content: '';
+  opacity: 0.05;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+}
+
+/* ---------- Welcome ---------- */
+
+.vx-welcome {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(380px, 0.85fr);
+}
+
+.vx-welcome-stage {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 100dvh;
+  padding: 32px clamp(28px, 6vw, 88px) 48px;
+}
+
+.vx-welcome-copy {
+  max-width: 620px;
+  padding: 48px 0;
+}
+
+.vx-welcome-copy h1 {
+  font-size: clamp(52px, 6.6vw, 92px);
+  line-height: 0.98;
+}
+
+.vx-welcome-lede {
+  max-width: 520px;
+  margin: 26px 0 0;
+  font-size: var(--vx-text-lg);
+  line-height: 1.6;
+  color: var(--vx-text-2);
+}
+
+.vx-welcome-samples {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 34px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.vx-welcome-samples li {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 14px;
+  font-size: var(--vx-text-md);
+  color: var(--vx-text-2);
+  background: rgba(255, 255, 255, 0.025);
+  border: 1px solid var(--vx-border);
+  border-radius: var(--vx-r-full);
+}
+
+.vx-welcome-samples svg {
+  color: var(--vx-blue);
+}
+
+.vx-welcome-panel {
+  display: grid;
+  place-items: center;
+  padding: 32px;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.015), rgba(255, 255, 255, 0.0));
+  border-left: 1px solid var(--vx-border);
+}
+
+.vx-welcome-card {
+  width: min(380px, 100%);
+}
+
+.vx-welcome-card-mark {
+  display: inline-grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  margin-bottom: 22px;
+  color: var(--vx-blue);
+  background: radial-gradient(circle at 50% 35%, rgba(92, 145, 242, 0.22), rgba(92, 145, 242, 0.03) 70%);
+  border: 1px solid var(--vx-accent-line);
+  border-radius: 14px;
+}
+
+.vx-welcome-card-title {
+  font-size: var(--vx-display-md);
+}
+
+.vx-welcome-card-copy {
+  margin: 10px 0 26px;
+  line-height: 1.55;
+  color: var(--vx-text-2);
+}
+@media (max-width: 900px) {
+  .vx-welcome {
+    grid-template-columns: 1fr;
+  }
+
+  .vx-welcome-stage {
+    min-height: auto;
+    padding: 20px 20px 8px;
+  }
+
+  .vx-welcome-copy {
+    padding: 40px 0 8px;
+  }
+
+  .vx-welcome-copy h1 {
+    font-size: clamp(44px, 12vw, 64px);
+  }
+
+  .vx-welcome-lede {
+    font-size: var(--vx-text-base);
+  }
+
+  .vx-welcome-samples {
+    display: none;
+  }
+
+  .vx-welcome-panel {
+    place-items: start center;
+    padding: 24px 20px 40px;
+    background: none;
+    border-left: 0;
+  }
+
+  .vx-welcome-card-mark,
+  .vx-welcome-card-title {
+    display: none;
+  }
+
+  .vx-welcome-card-copy {
+    margin-top: 0;
+  }
+}
+
+/* ---------- Auth + onboarding ---------- */
+
+.vx-auth,
+.vx-onboarding {
+  display: flex;
+  flex-direction: column;
+}
+
+.vx-auth-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 22px clamp(20px, 4vw, 40px);
+}
+
+.vx-auth-body,
+.vx-onboarding-body {
+  display: flex;
+  flex: 1 0 auto;
+  flex-direction: column;
+  justify-content: center;
+  width: min(400px, calc(100% - 40px));
+  margin: 0 auto;
+  padding: 12px 0 40px;
+}
+
+.vx-onboarding-wide {
+  width: min(620px, calc(100% - 40px));
+}
+
+.vx-auth-title {
+  font-size: clamp(36px, 4.4vw, 46px);
+}
+
+.vx-auth-subtitle {
+  margin: 10px 0 0;
+  font-size: var(--vx-text-base);
+  line-height: 1.55;
+  color: var(--vx-text-2);
+}
+
+.vx-auth-subtitle strong {
+  font-weight: 500;
+  color: var(--vx-text-1);
+}
+
+.vx-auth-body > .vx-notice,
+.vx-onboarding-body > .vx-notice {
+  margin-top: 20px;
+}
+
+.vx-auth-form {
+  display: grid;
+  gap: 18px;
+  margin-top: 28px;
+}
+
+.vx-auth-form .vx-btn-primary {
+  margin-top: 6px;
+}
+
+.vx-auth-switch {
+  margin: 22px 0 0;
+  font-size: var(--vx-text-md);
+  color: var(--vx-text-3);
+  text-align: center;
+}
+
+.vx-auth-footer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px 24px;
+  padding: 18px 20px 26px;
+}
+
+.vx-onboarding-body {
+  gap: 22px;
+}
+
+.vx-onboarding-body .vx-auth-title:focus {
+  outline: none;
+  box-shadow: none;
+}
+
+.vx-onboarding-body .vx-auth-subtitle {
+  margin-top: -10px;
+}
+
+.vx-onboarding-body .vx-row {
+  margin-top: 6px;
+}
+
+.vx-steps {
+  display: flex;
+  gap: 6px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.vx-steps li {
+  width: 26px;
+  height: 4px;
+  background: var(--vx-surface-4);
+  border-radius: 2px;
+  transition: background var(--vx-t) var(--vx-ease);
+}
+
+.vx-steps li.on {
+  background: var(--vx-accent);
+}
+@media (max-height: 760px) {
+  .vx-auth-form {
+    gap: 14px;
+    margin-top: 22px;
+  }
+
+  .vx-auth-header {
+    padding-top: 16px;
+    padding-bottom: 8px;
+  }
+}
